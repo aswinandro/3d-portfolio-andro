@@ -25,7 +25,7 @@ const Hero = () => {
       {/* Hero Content */}
       <section
         id="hero"
-        className="relative z-10 flex-1 flex flex-col items-center justify-center text-center gap-7 pt-28 sm:pt-20 md:pt-35 lg:pt-40 px-6 sm:px-4 md:px-6 lg:px-10"
+        className="relative z-10 flex-1 flex flex-col items-center justify-center text-center gap-7 pt-28 sm:pt-35 md:pt-35 lg:pt-40 px-2 sm:px-4 md:px-6 lg:px-10"
       >
         <div className="hero-text max-w-4xl ">
           <h1>
@@ -49,7 +49,7 @@ const Hero = () => {
             </span>
           </h1>
           <h1>into Real Projects</h1>
-          <h1 className="pr-16">that Deliver Results</h1>
+          <h1 className="xl:pr-80 lg:pr-70 sm:pr-0 md:pr-54">that Deliver Results</h1>
         </div>
 
         <p className="text-white-50 md:text-xl relative z-10 pointer-events-none">

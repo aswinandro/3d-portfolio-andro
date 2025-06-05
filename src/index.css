@@ -27,6 +27,7 @@ section {
   --color-black-200: #282732;
   --color-blue-50: #839cb5;
   --color-blue-100: #2d2d38;
+  --gradient-silver: linear-gradient(to right, #e0e0e0, #c0c0c0, #a0a0a0);
 }
 
 @layer utilities {
