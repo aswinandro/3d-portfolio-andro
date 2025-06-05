@@ -53,12 +53,11 @@ const AppShowcase = () => {
             </div>
             <div className="text-content">
               <h2>
-                On-Demand Rides Made Simple with a Powerful, User-Friendly App
-                called Ryde
+                EVEARA - Music Distribution Platform 
               </h2>
               <p className="text-white-50 md:text-xl">
-                An app built with React Native, Expo, & TailwindCSS for a fast,
-                user-friendly experience.
+                An app built with React, React Native, Expo, & TailwindCSS | Nodejs | FastAPI | MSSQ for a fast,
+                user-friendly experience. White Label Partners, Users, Admin, Artistsmusic distribution, analytics, and more.
               </p>
             </div>
           </div>
@@ -71,14 +70,14 @@ const AppShowcase = () => {
                   alt="Library Management Platform"
                 />
               </div>
-              <h2>The Library Management Platform</h2>
+              <h2>ROHiM - Youtube APIv3 & Calendar API Integrated</h2>
             </div>
 
             <div className="project" ref={ycDirectoryRef}>
               <div className="image-wrapper bg-[#FFE7EB]">
                 <img src="/images/project3.png" alt="YC Directory App" />
               </div>
-              <h2>YC Directory - A Startup Showcase App</h2>
+              <h2>GSAP Animations - WhatsApp API</h2>
             </div>
           </div>
         </div>

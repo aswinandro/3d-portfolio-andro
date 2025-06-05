@@ -12,7 +12,7 @@ const navLinks = [
     link: "#skills",
   },
   {
-    name: "Testimonials",
+    name: "Tech Stack",
     link: "#testimonials",
   },
 ];
@@ -147,39 +147,41 @@ const techStackIcons = [
 
 const expCards = [
   {
-    review: "Aswin Andro brought creativity and technical expertise to the team, significantly improving our frontend performance. His work has been invaluable in delivering faster experiences.",
+    review: "Aswin Andro brought creativity and technical expertise to the team. His work has been invaluable in delivering faster experiences.",
     imgPath: "/images/exp1.png",
     logoPath: "/images/logo1.png",
-    title: "Frontend Developer",
-    date: "January 2023 - Present",
+    title: "FullStack Developer - API & Cloud",
+    date: "July 2022 - February 2025 | Acrocede Technologies Pvt. Limited, India",
     responsibilities: [
-      "Developed and maintained user-facing features for the Hostinger website.",
-      "Collaborated closely with UI/UX designers to ensure seamless user experiences.",
-      "Optimized web applications for maximum speed and scalability.",
+      "Developed 50+ APIs using Kong,  Mulesoft Anypoint Platform, streamlining integration processes.",
+      "Worked closely with cross-functional teams on cloud deployments and system tuning.",
+      "Azure DevOps, Continuous Integration and Deployment of API’s",
+      "Led cloud-backed application optimizations improving system throughput by 35%.",
     ],
   },
   {
-    review: "Andro’s contributions to Docker's web applications have been outstanding. He approaches challenges with a problem-solving mindset.",
+    review: "Andro’s contributions to Eveara's web applications have been outstanding. He approaches challenges with a problem-solving mindset.",
     imgPath: "/images/exp2.png",
     logoPath: "/images/logo2.png",
-    title: "Full Stack Developer",
-    date: "June 2020 - December 2023",
+    title: "Full Stack Developer ",
+    date: "June 2021 - December 2022 | Techversant InfoTech Pvt. Limited, India",
     responsibilities: [
-      "Led the development of Docker's web applications, focusing on scalability.",
-      "Worked with backend engineers to integrate APIs seamlessly with the frontend.",
-      "Contributed to open-source projects that were used with the Docker ecosystem.",
+      "Implemented responsive design principles to ensure optimal user experience across devices.",
+      "Applied DevOps principles for early bug identification and release testing.Developed and optimized web interfaces and backend services using ReactJS, MSSQL Server, and Node.js.",
+      "Eveara Music Distribution Platform - Worked with backend engineers to integrate APIs seamlessly with the frontend, ensuring high availability and performance.",
+      "API Development . FaaS, Lambda ServerlessCloud Migration: migration of existing applications and infrastructure to AWS, optimizing it with the Docker ecosystem.",
     ],
   },
   {
     review: "Andro’s work on Appwrite’s mobile app brought a high level of quality and efficiency. He delivered solutions that enhanced our mobile experience & meet our product goals.",
     imgPath: "/images/exp3.png",
     logoPath: "/images/logo3.png",
-    title: "React Native Developer",
-    date: "March 2019 - May 2020",
+    title: "FullStack Developer - MERN & React Native",
+    date: "March 2020 - June 2021 | Obo Technologies Pvt. Limited, India",
     responsibilities: [
-      "Built cross-platform mobile apps using React Native, integrating with Appwrite's backend services.",
-      "Improved app performance and user experience through code optimization and testing.",
-      "Coordinated with the product team to implement features based on feedback.",
+      "AI-powered virtual assistant - designed to handle customer inquiries, MERN Stack – Python NLTK",
+      "Developed KumariKalvi.com, a one-stop solution for simplified online admissions, streamlining enrollments by 40%. AWS Cloud – S3 Bucket, Lambda Functions, Router – Cloud Systems",
+      "Developed backend services in Node.js and Express.js, API - Development increasing app efficiency by 30%.",
     ],
   },
 ];
@@ -201,47 +203,105 @@ const expLogos = [
 
 const testimonials = [
   {
-    name: "Esther Howard",
+    name: "ReactJS",
     mentions: "@estherhoward",
     review:
-      "I can’t say enough good things about Andro. He was able to take our complex project requirements and turn them into a seamless, functional website. His problem-solving abilities are outstanding.",
+      "",
     imgPath: "/images/client1.png",
   },
   {
-    name: "Wade Warren",
+    name: "MuleSoft API ",
     mentions: "@wadewarren",
     review:
-      "Working with Andro was a fantastic experience. He transformed our outdated website into a modern, user-friendly platform. His attention to detail and commitment to quality are unmatched. Highly recommend him for any web dev projects.",
+      '',
     imgPath: "/images/client3.png",
   },
   {
-    name: "Guy Hawkins",
+    name: "KONG API ",
     mentions: "@guyhawkins",
     review:
-      "Collaborating with Andro was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Andro's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Andro is the ideal partner.",
+    "",
     imgPath: "/images/client2.png",
   },
   {
-    name: "Marvin McKinney",
+    name: "AWS Web Services",
     mentions: "@marvinmckinney",
     review:
-      "Andro was a pleasure to work with. He turned our outdated website into a fresh, intuitive platform that’s both modern and easy to navigate. Fantastic work overall.",
+      '',
     imgPath: "/images/client5.png",
   },
   {
-    name: "Floyd Miles",
+    name: "Oracle Cloud Infrastructure",
     mentions: "@floydmiles",
     review:
-      "Andro’s expertise in web development is truly impressive. He delivered a robust and scalable solution for our e-commerce site, and our online sales have significantly increased since the launch. He’s a true professional!",
+      "",
     imgPath: "/images/client4.png",
   },
   {
-    name: "Albert Flores",
+    name: "React Native",
     mentions: "@albertflores",
     review:
-      "Andro was a pleasure to work with. He understood our requirements perfectly and delivered a website that exceeded our expectations. His skills in both frontend and backend dev are top-notch.",
+      "",
     imgPath: "/images/client6.png",
   },
+  {
+    name: "Tailwind CSS",
+    mentions: "@albertflores",
+    review:
+      "",
+    imgPath: "/images/client6.png",
+  },
+  {
+    name: "Mongo DB",
+    mentions: "@albertflores",
+    review:
+      "",
+    imgPath: "/images/client6.png",
+  },
+  {
+    name: "SQL / No SQL",
+    mentions: "@albertflores",
+    review:
+      "",
+    imgPath: "/images/client6.png",
+  },
+  {
+    name: "React Native",
+    mentions: "@albertflores",
+    review:
+      "",
+    imgPath: "/images/client6.png",
+  },
+  {
+    name: "DevOps & CI/CD",
+    mentions: "@albertflores",
+    review:
+      "",
+    imgPath: "/images/client6.png",
+  },
+  {
+    name: "Node JS",
+    mentions: "@albertflores",
+    review:
+      "",
+    imgPath: "/images/client6.png",
+  },
+  {
+    name: "RESTAPI / GraphQL / SOAP ",
+    mentions: "@albertflores",
+    review:
+      "",
+    imgPath: "/images/client6.png",
+  },
+  {
+    name: "Git & Version Control",
+    mentions: "@albertflores",
+    review:
+      "",
+    imgPath: "/images/client6.png",
+  },
+
+
 ];
 
 const socialImgs = [
