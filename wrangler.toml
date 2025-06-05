@@ -1,5 +1,0 @@
-name = "three-d-portfolio-2025"
-compatibility_date = "2025-06-05"
-
-[site]
-bucket = "./dist"
