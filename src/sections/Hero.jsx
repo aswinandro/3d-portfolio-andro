@@ -25,7 +25,7 @@ const Hero = () => {
       {/* Hero Content */}
       <section
         id="hero"
-        className="relative z-10 flex-1 flex flex-col items-center justify-center text-center gap-7 pt-28 sm:pt-35 md:pt-35 lg:pt-40 px-2 sm:px-4 md:px-6 lg:px-10"
+        className="relative z-10 flex-1 flex flex-col items-center justify-center text-center gap-7 pt-28 sm:pt-55 md:pt-55 lg:pt-40 xl:pt-35 2xl:pt-35 px-2 sm:px-4 md:px-6 lg:px-10"
       >
         <div className="hero-text max-w-4xl ">
           <h1>
