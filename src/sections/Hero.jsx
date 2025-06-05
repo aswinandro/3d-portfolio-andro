@@ -15,19 +15,19 @@ const Hero = () => {
   });
 
   return (
-    <section
-      id="hero"
-      className="relative overflow-hidden min-h-screen flex items-center justify-center"
-    >
+    <div className="relative min-h-screen overflow-hidden flex flex-col justify-center">
       {/* Background Image */}
       <div className="absolute top-0 left-0 z-0 w-full h-full">
         <img src="/images/bg.png" alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.2)_0%,_transparent_70%)] mix-blend-screen" />
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.2)_0%,_transparent_70%)] mix-blend-screen" />
       </div>
 
-      {/* Centered Content */}
-      <div className="flex flex-col items-center justify-center text-center gap-7 px-5 md:px-20 z-10 max-w-4xl">
-        <div className="hero-text">
+      {/* Hero Content */}
+      <section
+        id="hero"
+        className="relative z-10 flex-1 flex flex-col items-center justify-center text-center gap-7 pt-28 sm:pt-20 md:pt-35 lg:pt-40 px-6 sm:px-4 md:px-6 lg:px-10"
+      >
+        <div className="hero-text max-w-4xl ">
           <h1>
             Shaping
             <span className="slide">
@@ -49,16 +49,16 @@ const Hero = () => {
             </span>
           </h1>
           <h1>into Real Projects</h1>
-          <h1>that Deliver Results</h1>
+          <h1 className="pr-16">that Deliver Results</h1>
         </div>
 
         <p className="text-white-50 md:text-xl relative z-10 pointer-events-none">
           Hi, I’m Aswin Andro, a developer based in UAE with a passion for code.
         </p>
-      </div>
+      </section>
 
-      {/* Counter + Button Wrapper */}
-      <div className="absolute bottom-5 flex flex-col items-end gap-3 z-20">
+      {/* Bottom Counter + Button */}
+      <div className="z-20 w-full flex flex-col items-center gap-4 py-6 md:py-4 px-5 md:px-10">
         <AnimatedCounter />
         <Button
           text="See My Work"
@@ -66,7 +66,7 @@ const Hero = () => {
           id="counter"
         />
       </div>
-    </section>
+    </div>
   );
 };
 
