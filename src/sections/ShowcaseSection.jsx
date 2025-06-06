@@ -70,7 +70,7 @@ const AppShowcase = () => {
                   alt="Library Management Platform"
                 />
               </div>
-              <h2>ROHiM - Youtube APIv3 & Calendar API Integrated</h2>
+              <h2>ROHiM - Youtube APIv3 & Calendar API</h2>
             </div>
 
             <div className="project" ref={ycDirectoryRef}>
@@ -78,6 +78,24 @@ const AppShowcase = () => {
                 <img src="/images/project3.png" alt="YC Directory App" />
               </div>
               <h2>GSAP Animations - WhatsApp API</h2>
+            </div>
+          </div>
+          <div className="project-list-wrapper overflow-hidden">
+            <div className="project" ref={libraryRef}>
+              <div className="image-wrapper bg-[#FFEFDB]">
+                <img
+                  src="/images/project5.png"
+                  alt="Library Management Platform"
+                />
+              </div>
+              <h2>Three.js Portfolio</h2>
+            </div>
+
+            <div className="project" ref={ycDirectoryRef}>
+              <div className="image-wrapper bg-[#FFE7EB]">
+                <img src="/images/project4.png" alt="YC Directory App" />
+              </div>
+              <h2>HolyLandTv - LiveStreaming FullStack</h2>
             </div>
           </div>
         </div>
