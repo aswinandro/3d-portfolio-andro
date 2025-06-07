@@ -173,7 +173,7 @@ const expCards = [
     ],
   },
   {
-    review: "Andro’s work on Appwrite’s mobile app brought a high level of quality and efficiency. He delivered solutions that enhanced our mobile experience & meet our product goals.",
+    review: "Andro’s work on Obo’s MERN Stack projects brought a high level of quality and efficiency. He delivered solutions that enhanced our mobile experience & meet our product goals.",
     imgPath: "/images/exp3.png",
     logoPath: "/images/logo3.png",
     title: "FullStack Developer - MERN & React Native",
