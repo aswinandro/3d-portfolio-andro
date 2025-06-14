@@ -10,7 +10,8 @@ import FeatureCards from "./sections/FeatureCards";
 import Navbar from "./components/NavBar";
 
 const App = () => (
-  <>
+  <div>
+    
     <Navbar />
     <Hero />
 
@@ -22,7 +23,7 @@ const App = () => (
     <Testimonials />
     <Contact />
     <Footer />
-  </>
+  </div>
 );
 
 export default App;

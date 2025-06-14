@@ -4,6 +4,7 @@ import gsap from "gsap";
 import AnimatedCounter from "../components/AnimatedCounter";
 import Button from "../components/Button";
 import { words } from "../constants";
+import Ribbons from "../components/animate/Ribbons";
 
 const Hero = () => {
   useGSAP(() => {
@@ -21,40 +22,25 @@ const Hero = () => {
     });
   });
   
-   useEffect(() => {
-    const bgImage = document.querySelector(".bg-image");
-
-    const handleClick = (e) => {
-      const ripple = gsap.timeline();
-
-      // Zoom + blur ripple animation
-      ripple.to(bgImage, {
-        scale: 1.2,
-        filter: "blur(2px)",
-        duration: 0.3,
-        ease: "power2.out",
-      });
-
-      ripple.to(bgImage, {
-        scale: 1,
-        filter: "blur(0px)",
-        duration: 0.6,
-        ease: "power2.inOut",
-      });
-    };
-
-    window.addEventListener("click", handleClick);
-    return () => window.removeEventListener("click", handleClick);
-  }, []);
-  
+   
   return (
     <div className="relative min-h-screen overflow-hidden flex flex-col justify-center">
+   
       {/* Background Image */}
       <div className="absolute top-0 left-0 z-0 w-full h-full">
         <img src="/images/bg.png" alt="" className="bg-image w-full h-full object-cover" />
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.2)_0%,_transparent_70%)] mix-blend-screen" />
       </div>
 
+           {/* <Ribbons
+           className="absolute inset-0 z-50 pointer-events-none"
+    baseThickness={30}
+    colors={['#ffffff']}
+    speedMultiplier={0.5}
+    maxAge={500}
+    enableFade={false}
+    enableShaderEffect={true}
+  /> */}
       {/* Hero Content */}
       <section
         id="hero"
@@ -86,7 +72,7 @@ const Hero = () => {
         </div>
 
         <p className="text-white-50 md:text-xl relative z-10 pointer-events-none">
-          Hi, I’m Aswin Andro, a developer based in UAE with a passion for code.
+          Hi, I’m Aswin Andro, a Fullstack developer with a passion for Code and DevOps.
         </p>
       </section>
 

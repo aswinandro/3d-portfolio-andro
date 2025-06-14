@@ -308,18 +308,22 @@ const socialImgs = [
   {
     name: "insta",
     imgPath: "/images/insta.png",
+    link: "https://www.instagram.com/andro_keys/",
   },
   {
     name: "fb",
     imgPath: "/images/fb.png",
+    link: ""
   },
   {
     name: "x",
     imgPath: "/images/x.png",
+    link: "",
   },
   {
     name: "linkedin",
     imgPath: "/images/linkedin.png",
+    link: "https://www.linkedin.com/in/aswin-andro/",
   },
 ];
 
