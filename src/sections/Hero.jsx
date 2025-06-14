@@ -12,13 +12,46 @@ const Hero = () => {
       { y: 50, opacity: 0 },
       { y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power2.inOut" }
     );
+        gsap.to(".bg-image", {
+      scale: 1.6,
+      duration: 6,
+      ease: "sine.inOut",
+      repeat: -1,
+      yoyo: true,
+    });
   });
+  
+   useEffect(() => {
+    const bgImage = document.querySelector(".bg-image");
 
+    const handleClick = (e) => {
+      const ripple = gsap.timeline();
+
+      // Zoom + blur ripple animation
+      ripple.to(bgImage, {
+        scale: 1.2,
+        filter: "blur(2px)",
+        duration: 0.3,
+        ease: "power2.out",
+      });
+
+      ripple.to(bgImage, {
+        scale: 1,
+        filter: "blur(0px)",
+        duration: 0.6,
+        ease: "power2.inOut",
+      });
+    };
+
+    window.addEventListener("click", handleClick);
+    return () => window.removeEventListener("click", handleClick);
+  }, []);
+  
   return (
     <div className="relative min-h-screen overflow-hidden flex flex-col justify-center">
       {/* Background Image */}
       <div className="absolute top-0 left-0 z-0 w-full h-full">
-        <img src="/images/bg.png" alt="" className="w-full h-full object-cover" />
+        <img src="/images/bg.png" alt="" className="bg-image w-full h-full object-cover" />
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.2)_0%,_transparent_70%)] mix-blend-screen" />
       </div>
 
@@ -58,7 +91,7 @@ const Hero = () => {
       </section>
 
       {/* Bottom Counter + Button */}
-      <div className="z-20 w-full flex flex-col items-center gap-4 py-6 md:py-4 px-5 md:px-10">
+      <div className="z-20 w-full flex flex-col items-center gap-4 py-6 md:py-4 px-5 md:px-10 ">
         <AnimatedCounter />
         <Button
           text="See My Work"
