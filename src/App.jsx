@@ -1,29 +1,35 @@
-import Testimonials from "./sections/Testimonials";
-import Footer from "./sections/Footer";
-import Contact from "./sections/Contact";
-import TechStack from "./sections/TechStack";
-import Experience from "./sections/Experience";
-import Hero from "./sections/Hero";
-import ShowcaseSection from "./sections/ShowcaseSection";
-import LogoShowcase from "./sections/LogoShowcase";
-import FeatureCards from "./sections/FeatureCards";
+import React, { Suspense, lazy } from "react";
 import Navbar from "./components/NavBar";
+import Hero from "./sections/Hero";
+import ErrorBoundary from "./components/ErrorBoundary";
+
+const LogoShowcase = lazy(() => import("./sections/LogoShowcase"));
+const ShowcaseSection = lazy(() => import("./sections/ShowcaseSection"));
+const FeatureCards = lazy(() => import("./sections/FeatureCards"));
+const Experience = lazy(() => import("./sections/Experience"));
+const TechStack = lazy(() => import("./sections/TechStack"));
+const Testimonials = lazy(() => import("./sections/Testimonials"));
+const Contact = lazy(() => import("./sections/Contact"));
+const Footer = lazy(() => import("./sections/Footer"));
 
 const App = () => (
-  <div>
-    
+  <ErrorBoundary>
     <Navbar />
     <Hero />
-
-    <LogoShowcase />
-        <ShowcaseSection />
-    <FeatureCards />
-    <Experience />
-    <TechStack />
-    <Testimonials />
-    <Contact />
-    <Footer />
-  </div>
+    <Suspense fallback={<div className="text-center p-4">Loading...</div>}>
+      <LogoShowcase />
+      <ShowcaseSection />
+      <FeatureCards />
+      <Experience />
+      
+    </Suspense>
+      <TechStack />
+          <Suspense fallback={<div className="text-center p-4">Loading...</div>}>
+      <Testimonials />
+      <Contact />
+      <Footer />
+      </Suspense>
+  </ErrorBoundary>
 );
 
 export default App;
