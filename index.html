@@ -5,9 +5,34 @@
     <link rel="icon" type="image/svg+xml" href="/images/fav.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aswin Andro &mdash; Tech Andro Portfolio</title>
+
+    <!-- ✅ JSON-LD Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Aswin Andro",
+      "url": "https://techandro.uk",
+      "telephone": "+971545449182",
+      "sameAs": [
+        "https://www.linkedin.com/in/aswinandro",
+        "https://github.com/aswinandro"
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- ✅ Clickable Phone Number (Visible + Microdata Optimized) -->
+    <footer>
+      <p itemscope itemtype="https://schema.org/Person">
+        Call me at:
+        <a href="tel:+971545449182" itemprop="telephone">+971 54 544 9182</a>
+      </p>
+    </footer>
+
+    <!-- ✅ Main Script -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

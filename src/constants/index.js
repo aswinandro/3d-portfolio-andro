@@ -155,7 +155,7 @@ const expCards = [
     responsibilities: [
       "Developed 50+ APIs using Kong,  Mulesoft Anypoint Platform, streamlining integration processes.",
       "Worked closely with cross-functional teams on cloud deployments and system tuning.",
-      "Azure DevOps, Continuous Integration and Deployment of API’s",
+      "Oracle Cloud, AWS, Azure DevOps, Continuous Integration and Deployment of API’s",
       "Led cloud-backed application optimizations improving system throughput by 35%.",
     ],
   },
@@ -232,6 +232,13 @@ const testimonials = [
   },
   {
     name: "Oracle Cloud Infrastructure",
+    mentions: "@floydmiles",
+    review:
+      "",
+    imgPath: "/images/client4.png",
+  },
+  {
+    name: "Azure",
     mentions: "@floydmiles",
     review:
       "",
