@@ -153,7 +153,7 @@ const expCards = [
     title: "FullStack Developer - API & Cloud",
     date: "July 2022 - February 2025 | Acrocede Technologies Pvt. Limited, India",
     responsibilities: [
-      "Developed 50+ APIs using Kong,  Mulesoft Anypoint Platform, streamlining integration processes.",
+      "Developed  APIs using Java Spring Boot,  Kong,  Mulesoft Anypoint Platform, streamlining integration processes for Core Banking",
       "Worked closely with cross-functional teams on cloud deployments and system tuning.",
       "Oracle Cloud, AWS, Azure DevOps, Continuous Integration and Deployment of API’s",
       "Led cloud-backed application optimizations improving system throughput by 35%.",
@@ -202,6 +202,15 @@ const expLogos = [
 ];
 
 const testimonials = [
+ 
+   {
+    name: "Java - Spring Boot",
+    mentions: "@estherhoward",
+    review:
+      "",
+    imgPath: "/images/client1.png",
+  },
+
   {
     name: "ReactJS",
     mentions: "@estherhoward",
@@ -273,7 +282,7 @@ const testimonials = [
     imgPath: "/images/client6.png",
   },
   {
-    name: "React Native",
+    name: "WSO2",
     mentions: "@albertflores",
     review:
       "",
