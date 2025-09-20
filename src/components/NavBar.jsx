@@ -3,24 +3,15 @@ import { Link } from "react-router-dom";
 import { navLinks } from "../constants";
 
 const NavBar = () => {
-  // track if the user has scrolled down the page
   const [scrolled, setScrolled] = useState(false);
-  // track if the mobile menu is open
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Track scroll state for header
   useEffect(() => {
-    // create an event listener for when the user scrolls
     const handleScroll = () => {
-      // check if the user has scrolled down at least 10px
-      // if so, set the state to true
-      const isScrolled = window.scrollY > 10;
-      setScrolled(isScrolled);
+      setScrolled(window.scrollY > 10);
     };
-
-    // add the event listener to the window
     window.addEventListener("scroll", handleScroll);
-
-    // cleanup the event listener when the component is unmounted
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -31,7 +22,6 @@ const NavBar = () => {
     } else {
       document.body.style.overflow = "unset";
     }
-    // Cleanup function to ensure scroll is re-enabled on component unmount
     return () => {
       document.body.style.overflow = "unset";
     };
@@ -43,14 +33,19 @@ const NavBar = () => {
 
   return (
     <header className={`navbar ${scrolled ? "scrolled" : "not-scrolled"}`}>
-      <div className="inner">
-        <Link to="/" className="logo" onClick={handleLinkClick}>
+      <div className="inner flex items-center justify-between px-4 py-3 md:px-8">
+        {/* Logo */}
+        <Link
+          to="/"
+          className="logo text-xl font-bold"
+          onClick={handleLinkClick}
+        >
           Aswin Andro
         </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:block desktop">
-          <ul>
+          <ul className="flex gap-6">
             {navLinks.map(({ link, name }) => (
               <li key={name} className="group">
                 <Link to={link}>
@@ -62,43 +57,77 @@ const NavBar = () => {
           </ul>
         </nav>
 
+        {/* Desktop Contact */}
         <Link to="/contact" className="hidden md:flex contact-btn group">
           <div className="inner">
             <span>Contact me</span>
           </div>
         </Link>
 
-        {/* Hamburger Menu Button (visible on mobile) */}
+        {/* Hamburger Menu Button */}
         <button
-          className="md:hidden z-50 text-white"
+          className="md:hidden z-50 flex flex-col items-center justify-center w-8 h-8"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
         >
-          <div className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
-          <div className={`w-6 h-0.5 bg-white my-1.5 transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`}></div>
-          <div className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
+          <span
+            className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
+              mobileMenuOpen ? "rotate-45 translate-y-2" : ""
+            }`}
+          />
+          <span
+            className={`block w-6 h-0.5 bg-white my-1.5 transition-all duration-300 ${
+              mobileMenuOpen ? "opacity-0" : ""
+            }`}
+          />
+          <span
+            className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
+              mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
+            }`}
+          />
         </button>
 
         {/* Mobile Menu Overlay */}
-        <div className={`md:hidden fixed inset-0 bg-black/90 backdrop-blur-sm z-40 flex flex-col items-center justify-center text-center transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-          <nav>
-            <ul className="flex flex-col items-center gap-5">
-              {navLinks.map(({ link, name }) => (
-                <li key={name} className="text-lg font-medium text-white/90 hover:text-white transition-colors">
-                  <Link to={link} onClick={handleLinkClick}>{name}</Link>
+        <div
+          className={`
+            md:hidden fixed inset-0 z-40 
+            bg-black/95 backdrop-blur-sm
+            overflow-y-auto transform transition-all duration-300 ease-in-out
+            ${mobileMenuOpen ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-full pointer-events-none"}
+          `}
+        >
+          {/* FIX: Align to top instead of center */}
+          <div className="flex flex-col items-center w-full p-8 pt-20">
+            <nav>
+              <ul className="flex flex-col items-center gap-8 text-center">
+                {navLinks.map(({ link, name }) => (
+                  <li
+                    key={name}
+                    className="text-2xl font-semibold text-white/80 hover:text-white transition-colors"
+                  >
+                    <Link to={link} onClick={handleLinkClick}>
+                      {name}
+                    </Link>
+                  </li>
+                ))}
+                <li className="mt-8">
+                  <Link
+                    to="/contact"
+                    className="contact-btn group text-xl"
+                    onClick={handleLinkClick}
+                  >
+                    <div className="inner">
+                      <span>Contact me</span>
+                    </div>
+                  </Link>
                 </li>
-              ))}
-              <li className="mt-6">
-                <Link to="/contact" className="contact-btn group text-sm" onClick={handleLinkClick}>
-                  <div className="inner"><span>Contact me</span></div>
-                </Link>
-              </li>
-            </ul>
-          </nav>
+              </ul>
+            </nav>
+          </div>
         </div>
       </div>
     </header>
   );
-}
+};
 
 export default NavBar;
