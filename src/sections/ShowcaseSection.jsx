@@ -7,24 +7,19 @@ gsap.registerPlugin(ScrollTrigger);
 
 const AppShowcase = () => {
   const sectionRef = useRef(null);
-  const rydeRef = useRef(null);
-  const libraryRef = useRef(null);
-  const ycDirectoryRef = useRef(null);
 
-  useGSAP(() => {
-    // Animation for the main section
-    gsap.fromTo(
-      sectionRef.current,
-      { opacity: 0 },
-      { opacity: 1, duration: 1.5 }
-    );
-
-    // Animations for each app showcase
-    const cards = [rydeRef.current, libraryRef.current, ycDirectoryRef.current];
-
-    cards.forEach((card, index) => {
+  useGSAP(
+    () => {
+      // Animation for the main section
       gsap.fromTo(
-        card,
+        sectionRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 1.5 }
+      );
+
+      // Animate all project cards
+      gsap.fromTo(
+        ".project-card",
         {
           y: 50,
           opacity: 0,
@@ -33,21 +28,22 @@ const AppShowcase = () => {
           y: 0,
           opacity: 1,
           duration: 1,
-          delay: 0.3 * (index + 1),
+          stagger: 0.3,
           scrollTrigger: {
-            trigger: card,
+            trigger: ".project-card",
             start: "top bottom-=100",
           },
         }
       );
-    });
-  }, []);
+    },
+    { scope: sectionRef }
+  );
 
   return (
     <div id="work" ref={sectionRef} className="app-showcase">
       <div className="w-full">
         <div className="showcaselayout">
-          <div ref={rydeRef} className="first-project-wrapper">
+          <div className="first-project-wrapper project-card">
             <div className="image-wrapper">
               <img src="/images/project1.png" alt="Ryde App Interface" />
             </div>
@@ -63,7 +59,7 @@ const AppShowcase = () => {
           </div>
 
           <div className="project-list-wrapper overflow-hidden">
-            <div className="project" ref={libraryRef}>
+            <div className="project project-card">
               <div className="image-wrapper bg-[#FFEFDB]">
                 <img
                   src="/images/project2.png"
@@ -73,15 +69,15 @@ const AppShowcase = () => {
               <h2>ROHiM - Youtube APIv3 & Calendar API</h2>
             </div>
 
-            <div className="project" ref={ycDirectoryRef}>
+            <div className="project project-card">
               <div className="image-wrapper bg-[#FFE7EB]">
                 <img src="/images/project3.png" alt="YC Directory App" />
               </div>
               <h2>GSAP Animations - WhatsApp API</h2>
             </div>
           </div>
-          <div className="project-list-wrapper overflow-hidden">
-            <div className="project" ref={libraryRef}>
+          <div className="project-list-wrapper overflow-hidden ">
+            <div className="project project-card">
               <div className="image-wrapper bg-[#FFEFDB]">
                 <img
                   src="/images/project5.png"
@@ -91,7 +87,7 @@ const AppShowcase = () => {
               <h2>Three.js Portfolio</h2>
             </div>
 
-            <div className="project" ref={ycDirectoryRef}>
+            <div className="project project-card">
               <div className="image-wrapper bg-[#FFE7EB]">
                 <img src="/images/project4.png" alt="YC Directory App" />
               </div>

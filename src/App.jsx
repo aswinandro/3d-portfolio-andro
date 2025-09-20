@@ -1,34 +1,33 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/NavBar";
-import Hero from "./sections/Hero";
+import Footer from "./sections/Footer";
 import ErrorBoundary from "./components/ErrorBoundary";
 
-const LogoShowcase = lazy(() => import("./sections/LogoShowcase"));
-const ShowcaseSection = lazy(() => import("./sections/ShowcaseSection"));
-const FeatureCards = lazy(() => import("./sections/FeatureCards"));
-const Experience = lazy(() => import("./sections/Experience"));
-const TechStack = lazy(() => import("./sections/TechStack"));
-const Testimonials = lazy(() => import("./sections/Testimonials"));
-const Contact = lazy(() => import("./sections/Contact"));
-const Footer = lazy(() => import("./sections/Footer"));
+// Lazy load pages for better code splitting and performance
+const HomePage = React.lazy(() => import('./Home'));
+const AboutPage = React.lazy(() => import('./About'));
+const WorkPage = React.lazy(() => import('./Work'));
+const ContactPage = React.lazy(() => import('./ContactPage'));
+const SkillsPage = React.lazy(() => import('./pages/SkillsPage'));
 
 const App = () => (
   <ErrorBoundary>
     <Navbar />
-    <Hero />
-    <Suspense fallback={<div className="text-center p-4">Loading...</div>}>
-      <LogoShowcase />
-      <ShowcaseSection />
-      <FeatureCards />
-      <Experience />
-      
-    </Suspense>
-      <TechStack />
-          <Suspense fallback={<div className="text-center p-4">Loading...</div>}>
-      <Testimonials />
-      <Contact />
-      <Footer />
+    <main>
+      <Suspense fallback={<div className="flex-center h-screen w-full">Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/work" element={<WorkPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/skills" element={<SkillsPage />} />
+        </Routes>
       </Suspense>
+    </main>
+    <Suspense>
+      <Footer />
+    </Suspense>
   </ErrorBoundary>
 );
 

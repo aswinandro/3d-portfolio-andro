@@ -1,20 +1,24 @@
 const navLinks = [
   {
+    name: "Home",
+    link: "/",
+  },
+  {
     name: "Work",
-    link: "#work",
+    link: "/work",
   },
   {
     name: "Experience",
-    link: "#experience",
+    link: "/about#experience",
   },
   {
     name: "Skills",
-    link: "#skills",
+    link: "/skills",
   },
-  {
-    name: "Tech Stack",
-    link: "#testimonials",
-  },
+  // {
+  //   name: "Testimonials",
+  //   link: "/testimonials",
+  // },
 ];
 
 const words = [
@@ -343,6 +347,54 @@ const socialImgs = [
   },
 ];
 
+const skillsData = [
+  {
+    category: "Languages",
+    icon: "/images/icons/code.svg",
+    skills: ["Java [8-21]", "J2EE", "Node.js", "Python", "TypeScript", "JavaScript"],
+  },
+  {
+    category: "Frameworks",
+    icon: "/images/icons/framework.svg",
+    skills: ["Spring Boot", "Spring MVC", "Hibernate", "NestJS", "Express.js", "Mulesoft", "KONG API", "Fastify", "FastAPI", "Flask"],
+  },
+  {
+    category: "Frontend",
+    icon: "/images/icons/frontend.svg",
+    skills: ["React.js", "Angular", "Next.js", "React Native", "HTML5", "CSS3", "Tailwind"],
+  },
+  {
+    category: "Databases",
+    icon: "/images/icons/database.svg",
+    skills: ["MongoDB", "MySQL", "PostgreSQL", "Oracle", "SQL Server", "DynamoDB", "Firebase", "GraphQL"],
+  },
+  {
+    category: "Cloud & DevOps",
+    icon: "/images/icons/cloud.svg",
+    skills: ["AWS", "Azure", "Oracle Cloud", "Docker", "Kubernetes", "GitHub Actions", "CI/CD", "Terraform", "Ansible", "Jenkins", "Helm"],
+  },
+  {
+    category: "Architecture & Patterns",
+    icon: "/images/icons/architecture.svg",
+    skills: ["Microservices", "Event-Driven", "DDD", "API Gateway", "RabbitMQ", "Kafka" ,"Bulkhead" , "Circuit Breaker", "Caching"],
+  },
+  {
+    category: "Observability & Logging",
+    icon: "/images/icons/observability.svg",
+    skills: ["Prometheus", "Grafana", "ELK Stack"],
+  },
+  {
+    category: "Testing & Quality",
+    icon: "/images/icons/testing.svg",
+    skills: ["JUnit", "Jest", "MUnit", "JMeter", "Penetration Testing"],
+  },
+  {
+    category: "Payments & Security",
+    icon: "/images/icons/security.svg",
+    skills: ["PCI DSS", "Tokenization", "OAuth2", "JWT", "TLS 1.3", "AES", "OWASP Top 10"],
+  },
+];
+
 export {
   words,
   abilities,
@@ -355,4 +407,5 @@ export {
   techStackIcons,
   techStackImgs,
   navLinks,
+  skillsData,
 };
