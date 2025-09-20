@@ -1,12 +1,23 @@
 import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Canvas } from "@react-three/fiber";
-import { View, PerspectiveCamera, OrbitControls } from "@react-three/drei";
+import {
+  View,
+  PerspectiveCamera,
+  OrbitControls,
+  useGLTF,
+} from "@react-three/drei";
 
 import TitleHeader from "../components/TitleHeader";
 import { techStackIcons } from "../constants";
 import TechModel from "../components/models/tech_logos/TechModel";
+
+gsap.registerPlugin(ScrollTrigger);
+
+// Preload all the tech stack models for a smoother experience
+techStackIcons.forEach((model) => useGLTF.preload(model.modelPath));
 
 const TechStack = () => {
   const containerRef = useRef();

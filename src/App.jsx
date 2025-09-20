@@ -9,6 +9,7 @@ const HomePage = React.lazy(() => import('./Home'));
 const AboutPage = React.lazy(() => import('./About'));
 const WorkPage = React.lazy(() => import('./Work'));
 const ContactPage = React.lazy(() => import('./ContactPage'));
+const SkillsPage = React.lazy(() => import('./pages/SkillsPage'));
 
 const App = () => (
   <ErrorBoundary>
@@ -20,6 +21,7 @@ const App = () => (
           <Route path="/about" element={<AboutPage />} />
           <Route path="/work" element={<WorkPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/skills" element={<SkillsPage />} />
         </Routes>
       </Suspense>
     </main>
