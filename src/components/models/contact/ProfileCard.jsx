@@ -33,9 +33,9 @@ const easeInOutCubic = (x) =>
   x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 
 const ProfileCardComponent = ({
-  avatarUrl = "<Placeholder for avatar URL>",
-  iconUrl = "<Placeholder for icon URL>",
-  grainUrl = "<Placeholder for grain URL>",
+  avatarUrl = "",
+  iconUrl = "",
+  grainUrl = "",
   behindGradient,
   innerGradient,
   showBehindGradient = true,
@@ -255,24 +255,19 @@ const ProfileCardComponent = ({
               src={avatarUrl}
               alt={`${name || "User"} avatar`}
               loading="lazy"
-              onError={(e) => {
-                const target = e.target;
-                target.style.display = "none";
-              }}
+              // Hides the image if it fails to load, preventing a broken icon and layout shift.
+              onError={(e) => (e.currentTarget.style.visibility = "hidden")}
             />
             {showUserInfo && (
               <div className="pc-user-info">
                 <div className="pc-user-details">
                   <div className="pc-mini-avatar">
                     <img
-                      src={miniAvatarUrl || avatarUrl}
+                      src={miniAvatarUrl || avatarUrl} // Fallback to main avatar
                       alt={`${name || "User"} mini avatar`}
                       loading="lazy"
-                      onError={(e) => {
-                        const target = e.target;
-                        target.style.opacity = "0.5";
-                        target.src = avatarUrl;
-                      }}
+                      // If the mini avatar fails, just hide it.
+                      onError={(e) => (e.currentTarget.style.display = "none")}
                     />
                   </div>
                   <div className="pc-user-text">

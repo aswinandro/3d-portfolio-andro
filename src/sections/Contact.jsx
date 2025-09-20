@@ -2,9 +2,7 @@ import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 
 import TitleHeader from "../components/TitleHeader";
-import ContactExperience from "../components/models/contact/ContactExperience";
 import ProfileCard from '../components/models/contact/ProfileCard';
-import profilePic from '../../public/images/profile.png'; // Adjust the path as necessary
 
 const Contact = () => {
   const formRef = useRef(null);
@@ -113,14 +111,14 @@ const Contact = () => {
             {/* <div className="bg-[#cd7c2e] w-full h-full hover:cursor-grab rounded-3xl overflow-hidden">
               <ContactExperience />
             </div> */}
-            <div className="bg-[#0a0a0a] w-full h-full hover:cursor-grab rounded-3xl overflow-hidden">
+            <div className="w-full h-full flex items-center justify-center">
              <ProfileCard
               name="Aswin Andro"
               title="Software Engineer"
               handle="aswinandro"
               status="Online"
               contactText="Contact Me"
-              avatarUrl={profilePic}
+              avatarUrl="/images/profile.png"
               showUserInfo={true}
               enableTilt={true}
               onContactClick={() => console.log('Contact clicked')}
