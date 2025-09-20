@@ -351,17 +351,17 @@ const skillsData = [
   {
     category: "Languages",
     icon: "/images/icons/code.svg",
-    skills: ["Java", "J2EE", "Node.js", "Python", "TypeScript", "JavaScript"],
+    skills: ["Java [8-21]", "J2EE", "Node.js", "Python", "TypeScript", "JavaScript"],
   },
   {
     category: "Frameworks",
     icon: "/images/icons/framework.svg",
-    skills: ["Spring Boot", "Spring MVC", "Hibernate", "NestJS", "Express.js", "Mulesoft", "KONG API"],
+    skills: ["Spring Boot", "Spring MVC", "Hibernate", "NestJS", "Express.js", "Mulesoft", "KONG API", "Fastify", "FastAPI", "Flask"],
   },
   {
     category: "Frontend",
     icon: "/images/icons/frontend.svg",
-    skills: ["React.js", "Angular", "Vue.js", "Next.js", "React Native", "HTML5", "CSS3", "Tailwind"],
+    skills: ["React.js", "Angular", "Next.js", "React Native", "HTML5", "CSS3", "Tailwind"],
   },
   {
     category: "Databases",
@@ -371,12 +371,12 @@ const skillsData = [
   {
     category: "Cloud & DevOps",
     icon: "/images/icons/cloud.svg",
-    skills: ["AWS", "Azure", "Oracle Cloud", "Docker", "Kubernetes", "GitHub Actions", "CI/CD", "Terraform", "Ansible"],
+    skills: ["AWS", "Azure", "Oracle Cloud", "Docker", "Kubernetes", "GitHub Actions", "CI/CD", "Terraform", "Ansible", "Jenkins", "Helm"],
   },
   {
     category: "Architecture & Patterns",
     icon: "/images/icons/architecture.svg",
-    skills: ["Microservices", "Event-Driven", "DDD", "API Gateway", "RabbitMQ", "Kafka"],
+    skills: ["Microservices", "Event-Driven", "DDD", "API Gateway", "RabbitMQ", "Kafka" ,"Bulkhead" , "Circuit Breaker", "Caching"],
   },
   {
     category: "Observability & Logging",
