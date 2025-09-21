@@ -27,6 +27,16 @@ const NavBar = () => {
     };
   }, [mobileMenuOpen]);
 
+  // Optional: close on Escape key
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [mobileMenuOpen]);
+
   const handleLinkClick = () => {
     setMobileMenuOpen(false);
   };
@@ -90,40 +100,47 @@ const NavBar = () => {
         {/* Mobile Menu Overlay */}
         <div
           className={`
-            md:hidden fixed inset-0 z-40 
+            md:hidden fixed inset-0 z-40 h-screen w-screen
             bg-black/95 backdrop-blur-sm
-            overflow-y-auto transform transition-all duration-300 ease-in-out
-            ${mobileMenuOpen ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-full pointer-events-none"}
+            flex items-center justify-center
+            transition-all duration-300 ease-in-out
+            ${mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
           `}
+          style={{ overscrollBehavior: "none" }}
         >
-          {/* FIX: Align to top instead of center */}
-          <div className="flex flex-col items-center w-full p-8 pt-20">
-            <nav>
-              <ul className="flex flex-col items-center gap-8 text-center">
-                {navLinks.map(({ link, name }) => (
-                  <li
-                    key={name}
-                    className="text-2xl font-semibold text-white/80 hover:text-white transition-colors"
-                  >
-                    <Link to={link} onClick={handleLinkClick}>
-                      {name}
-                    </Link>
-                  </li>
-                ))}
-                <li className="mt-8">
-                  <Link
-                    to="/contact"
-                    className="contact-btn group text-xl"
-                    onClick={handleLinkClick}
-                  >
-                    <div className="inner">
-                      <span>Contact me</span>
-                    </div>
+          {/* Close(X) button inside overlay */}
+          <button
+            className="absolute top-6 right-6 text-white text-3xl z-50"
+            aria-label="Close menu"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            &times;
+          </button>
+          <nav>
+            <ul className="flex flex-col items-center gap-8 text-center">
+              {navLinks.map(({ link, name }) => (
+                <li
+                  key={name}
+                  className="text-2xl font-semibold text-white/80 hover:text-white transition-colors"
+                >
+                  <Link to={link} onClick={handleLinkClick}>
+                    {name}
                   </Link>
                 </li>
-              </ul>
-            </nav>
-          </div>
+              ))}
+              <li className="mt-8">
+                <Link
+                  to="/contact"
+                  className="contact-btn group text-xl"
+                  onClick={handleLinkClick}
+                >
+                  <div className="inner">
+                    <span>Contact me</span>
+                  </div>
+                </Link>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </header>
