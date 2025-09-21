@@ -1,11 +1,10 @@
-import { useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
+import { useState } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 import TitleHeader from "../components/TitleHeader";
-import ProfileCard from '../components/models/contact/ProfileCard';
 
 const Contact = () => {
-  const formRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -13,30 +12,38 @@ const Contact = () => {
     message: "",
   });
 
+  useGSAP(() => {
+    // Simple floating animation for the profile picture
+    gsap.to(".profile-image", {
+      y: -20,
+      duration: 3,
+      ease: "sine.inOut",
+      repeat: -1,
+      yoyo: true,
+    });
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true); // Show loading state
+    setLoading(true);
 
-    try {
-      await emailjs.sendForm(
-        import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
-        formRef.current,
-        import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
-      );
+    const { name, email, message } = form;
+    const phoneNumber = "971545449182"; // WhatsApp number without '+'
+    const whatsappMessage = `Hello Aswin, I'm ${name}.\n\nMy Email: ${email}\n\nMessage: ${message}`;
+    const encodedMessage = encodeURIComponent(whatsappMessage);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
-      // Reset form and stop loading
-      setForm({ name: "", email: "", message: "" });
-    } catch (error) {
-      console.error("EmailJS Error:", error); // Optional: show toast
-    } finally {
-      setLoading(false); // Always stop loading, even on error
-    }
+    // Open WhatsApp in a new tab
+    window.open(whatsappUrl, "_blank");
+
+    // Reset form and loading state
+    setLoading(false);
+    setForm({ name: "", email: "", message: "" });
   };
 
   return (
@@ -50,7 +57,6 @@ const Contact = () => {
           <div className="xl:col-span-5">
             <div className="flex-center card-border rounded-xl p-10">
               <form
-                ref={formRef}
                 onSubmit={handleSubmit}
                 className="w-full flex flex-col gap-7"
               >
@@ -107,24 +113,16 @@ const Contact = () => {
               </form>
             </div>
           </div>
-          <div className="xl:col-span-7 min-h-96">
-            {/* <div className="bg-[#cd7c2e] w-full h-full hover:cursor-grab rounded-3xl overflow-hidden">
-              <ContactExperience />
-            </div> */}
-            <div className="w-full h-full flex items-center justify-center">
-             <ProfileCard
-              name="Aswin Andro"
-              title="Software Engineer"
-              handle="aswinandro"
-              status="Online"
-              contactText="Contact Me"
-              avatarUrl="/images/profile.png"
-              showUserInfo={true}
-              enableTilt={true}
-              onContactClick={() => console.log('Contact clicked')}
-            />
+          <div className="xl:col-span-7 min-h-96 hidden xl:flex justify-center items-end">
+            <div className="relative">
+              <img
+                src="/images/profile.png"
+                alt="Aswin Andro"
+                className="profile-image h-[550px] object-contain"
+              />
+              {/* Gradient overlay for a seamless merge with the background */}
+              <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#0d0d0f] to-transparent pointer-events-none" />
             </div>
-           
           </div>
         </div>
       </div>
