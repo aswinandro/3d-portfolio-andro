@@ -324,6 +324,40 @@ const testimonials = [
 
 ];
 
+const services = [
+  {
+    icon: "/images/icons/architecture.svg",
+    title: "System Architecture & Planning",
+    review: "Designing scalable, secure, and high-availability systems with modern architecture patterns.",
+  },
+  {
+    icon: "/images/icons/frontend.svg",
+    title: "Web Application Development",
+    review: "Building responsive, high-performance web applications with modern frameworks.",
+  },
+  {
+    icon: "/images/icons/mobile-dev.svg",
+    title: "Mobile Application Development",
+    review: "Developing native and cross-platform mobile apps with seamless user experiences.",
+  },
+  {
+    icon: "/images/icons/cloud.svg",
+    title: "Cloud Deployment & DevOps",
+    review: "Cloud-native deployments, CI/CD automation, monitoring, and scaling for reliability.",
+  },
+  {
+    icon: "/images/icons/backend.svg",
+    title: "API & Backend Engineering",
+    review: "Secure and efficient REST/GraphQL APIs, microservices, and backend systems.",
+  },
+  {
+    icon: "/images/icons/consulting.svg",
+    title: "Consulting & Technical Leadership",
+    review: "Guiding teams with technical strategy, architecture reviews, and modernization.",
+  },
+];
+
+
 const socialImgs = [
   {
     name: "insta",
@@ -403,6 +437,7 @@ export {
   expCards,
   expLogos,
   testimonials,
+  services,
   socialImgs,
   techStackIcons,
   techStackImgs,

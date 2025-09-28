@@ -1,27 +1,45 @@
-import { testimonials } from "../constants";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+import { services } from "../constants";
 import TitleHeader from "../components/TitleHeader";
 import GlowCard from "../components/GlowCard";
 
-const Testimonials = () => {
+gsap.registerPlugin(ScrollTrigger);
+
+const Services = () => {
+  useGSAP(() => {
+    gsap.fromTo(".service-card",
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power2.inOut",
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: "#services",
+          start: "top 80%",
+        },
+      }
+    );
+  }, []);
+
   return (
-    <section id="testimonials" className="flex-center section-padding">
+    <section id="services" className="flex-center section-padding">
       <div className="w-full h-full md:px-10 px-5">
         <TitleHeader
-          title="Some Skills & Tech Stack?"
-          sub="⭐️ Tech Stack & Skills I Use"
+          title="What I Can Do For You"
+          sub="🚀 Services I Offer to Bring Your Ideas to Life"
         />
 
-        <div className="lg:columns-3 md:columns-2 columns-1 mt-16">
-          {testimonials.map((testimonial, index) => (
-            <GlowCard card={testimonial} key={index} index={index}>
-              <div className="flex items-center gap-3">
-                {/* <div>
-                  <img src={testimonial.imgPath} alt="" />
-                </div> */}
-                <div>
-                  <p className="font-bold">{testimonial.name}</p>
-                  {/* <p className="text-white-50">{testimonial.mentions}</p> */}
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+          {services.map((service, index) => (
+            <GlowCard card={service} key={index} index={index} className="service-card">
+              <div className="flex items-center gap-4 mb-4">
+                <img src={service.icon} alt={service.title} className="w-10 h-10" />
+                <h3 className="text-xl font-semibold">{service.title}</h3>
               </div>
             </GlowCard>
           ))}
@@ -31,4 +49,4 @@ const Testimonials = () => {
   );
 };
 
-export default Testimonials;
+export default Services;
