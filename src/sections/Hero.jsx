@@ -21,6 +21,13 @@ const Hero = () => {
       yoyo: true,
     });
   });
+
+  const handleScrollToServices = () => {
+    const servicesSection = document.getElementById("services");
+    if (servicesSection) {
+      servicesSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   
    
   return (
@@ -83,6 +90,7 @@ const Hero = () => {
           text="What can I do for you?"
           className="md:w-80 md:h-16 w-60 h-12"
           id="counter"
+          onClick={handleScrollToServices}
         />
       </div>
     </div>
