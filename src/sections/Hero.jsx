@@ -80,7 +80,7 @@ const Hero = () => {
       <div className="z-20 w-full flex flex-col items-center gap-4 py-6 md:py-4 px-5 md:px-10 ">
         <AnimatedCounter />
         <Button
-          text="See My Work"
+          text="What can I do for you?"
           className="md:w-80 md:h-16 w-60 h-12"
           id="counter"
         />
