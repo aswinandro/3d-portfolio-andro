@@ -155,7 +155,7 @@ const expCards = [
     imgPath: "/images/exp1.png",
     logoPath: "/images/logo1.png",
     title: "FullStack Developer - API & Cloud",
-    date: "July 2022 - February 2025 | Acrocede Technologies Pvt. Limited, India",
+    date: "July 2022 - May 2025 | Acrocede Technologies Pvt. Limited, India",
     responsibilities: [
       "Developed  APIs using Java Spring Boot,  Kong,  Mulesoft Anypoint Platform, streamlining integration processes for Core Banking",
       "Worked closely with cross-functional teams on cloud deployments and system tuning.",
