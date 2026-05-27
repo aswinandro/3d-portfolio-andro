@@ -33,7 +33,7 @@ const words = [
 ];
 
 const counterItems = [
-  { value: 5 , suffix: "+", label: "Years of Experience" },
+  { value: 5, suffix: "+", label: "Years of Experience" },
   { value: 15, suffix: "+", label: "Satisfied Clients" },
   { value: 25, suffix: "+", label: "Completed Projects" },
   { value: 90, suffix: "%", label: "Client Retention Rate" },
@@ -151,6 +151,19 @@ const techStackIcons = [
 
 const expCards = [
   {
+    review: "Technical expertise to Empay project, & EmpayMart - React Native Mobile App.",
+    imgPath: "/images/client10.png",
+    logoPath: "/images/logo4.svg",
+    title: "Fullstack Developer - Java | DevOps | React Native",
+    date: "October 2025 - Till | The Emirates Credit Information Company Ltd, Dubai, UAE",
+    responsibilities: [
+      "Develop and maintain high-performance Java applications using Spring Boot framework.",
+      "Design and implement RESTful APIs and ensure seamless integration with other systems and third-party services.",
+      "Implement CI/CD pipelines using Azure DevOps for automated builds, testing, and deployment.",
+      "Collaborate with cross-functional teams to optimize application performance and scalability."
+    ],
+  },
+  {
     review: "Aswin Andro brought creativity and technical expertise to the team. His work has been invaluable in delivering faster experiences.",
     imgPath: "/images/exp1.png",
     logoPath: "/images/logo1.png",
@@ -206,8 +219,8 @@ const expLogos = [
 ];
 
 const testimonials = [
- 
-   {
+
+  {
     name: "Java - Spring Boot",
     mentions: "@estherhoward",
     review:
@@ -233,7 +246,7 @@ const testimonials = [
     name: "KONG API ",
     mentions: "@guyhawkins",
     review:
-    "",
+      "",
     imgPath: "/images/client2.png",
   },
   {
@@ -385,7 +398,7 @@ const skillsData = [
   {
     category: "Languages",
     icon: "/images/icons/code.svg",
-    skills: ["Java [8-21]", "J2EE", "Node.js", "Python", "TypeScript", "JavaScript"],
+    skills: ["Java [8-25]", "J2EE", "Node.js", "Python", "TypeScript", "JavaScript"],
   },
   {
     category: "Frameworks",
@@ -410,7 +423,7 @@ const skillsData = [
   {
     category: "Architecture & Patterns",
     icon: "/images/icons/architecture.svg",
-    skills: ["Microservices", "Event-Driven", "DDD", "API Gateway", "RabbitMQ", "Kafka" ,"Bulkhead" , "Circuit Breaker", "Caching"],
+    skills: ["Microservices", "Event-Driven", "DDD", "API Gateway", "RabbitMQ", "Kafka", "Bulkhead", "Circuit Breaker", "Caching"],
   },
   {
     category: "Observability & Logging",
