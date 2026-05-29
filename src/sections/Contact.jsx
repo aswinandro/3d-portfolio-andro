@@ -3,8 +3,10 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
 import TitleHeader from "../components/TitleHeader";
+import { ContactSkeleton, useSkeletonLoader } from "../components/Skeleton";
 
 const Contact = () => {
+  const { loading: isSkeletonLoading, showContent } = useSkeletonLoader(700);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -13,6 +15,8 @@ const Contact = () => {
   });
 
   useGSAP(() => {
+    if (!showContent) return;
+
     // Simple floating animation for the profile picture
     gsap.to(".profile-image", {
       y: -20,
@@ -21,7 +25,7 @@ const Contact = () => {
       repeat: -1,
       yoyo: true,
     });
-  }, []);
+  }, [showContent]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,8 +50,12 @@ const Contact = () => {
     setForm({ name: "", email: "", message: "" });
   };
 
+  if (isSkeletonLoading) {
+    return <ContactSkeleton />;
+  }
+
   return (
-    <section id="contact" className="flex-center section-padding">
+    <section id="contact" className={`transition-opacity duration-500 ease-out ${showContent ? "opacity-100" : "opacity-0"} flex-center section-padding`}>
       <div className="w-full h-full md:px-10 px-5">
         <TitleHeader
           title="Get in Touch – Let’s Connect"

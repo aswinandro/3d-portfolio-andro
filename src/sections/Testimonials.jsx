@@ -5,11 +5,16 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { services } from "../constants";
 import TitleHeader from "../components/TitleHeader";
 import GlowCard from "../components/GlowCard";
+import { ServicesSkeleton, useSkeletonLoader } from "../components/Skeleton";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Services = () => {
+  const { loading, showContent } = useSkeletonLoader(700);
+
   useGSAP(() => {
+    if (!showContent) return;
+
     gsap.fromTo(".service-card",
       { y: 50, opacity: 0 },
       {
@@ -24,10 +29,14 @@ const Services = () => {
         },
       }
     );
-  }, []);
+  }, [showContent]);
+
+  if (loading) {
+    return <ServicesSkeleton />;
+  }
 
   return (
-    <section id="services" className="flex-center section-padding">
+    <section id="services" className={`transition-opacity duration-500 ease-out ${showContent ? "opacity-100" : "opacity-0"} flex-center section-padding`}>
       <div className="w-full h-full md:px-10 px-5">
         <TitleHeader
           title="What I Can Do For You"

@@ -5,9 +5,13 @@ import AnimatedCounter from "../components/AnimatedCounter";
 import Button from "../components/Button";
 import { words } from "../constants";
 import Ribbons from "../components/animate/Ribbons";
+import { HeroSkeleton, useSkeletonLoader } from "../components/Skeleton";
 
 const Hero = () => {
+  const { loading, showContent } = useSkeletonLoader(750);
+
   useGSAP(() => {
+    if (!showContent) return;
     gsap.fromTo(
       ".hero-text h1",
       { y: 50, opacity: 0 },
@@ -20,7 +24,7 @@ const Hero = () => {
       repeat: -1,
       yoyo: true,
     });
-  });
+  }, [showContent]);
 
   const handleScrollToServices = () => {
     const servicesSection = document.getElementById("services");
@@ -29,9 +33,12 @@ const Hero = () => {
     }
   };
   
+  if (loading) {
+    return <HeroSkeleton />;
+  }
    
   return (
-    <div className="relative min-h-screen overflow-hidden flex flex-col justify-center">
+    <div className={`transition-opacity duration-500 ease-out ${showContent ? "opacity-100" : "opacity-0"} relative min-h-screen overflow-hidden flex flex-col justify-center`}>
    
       {/* Background Image */}
       <div className="absolute top-0 left-0 z-0 w-full h-full">

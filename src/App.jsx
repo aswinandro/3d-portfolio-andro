@@ -11,11 +11,28 @@ const WorkPage = React.lazy(() => import('./Work'));
 const ContactPage = React.lazy(() => import('./ContactPage'));
 const SkillsPage = React.lazy(() => import('./pages/SkillsPage'));
 
+import {
+  HeroSkeleton,
+  ExperienceSkeleton,
+  WorkSkeleton,
+  ContactSkeleton,
+  SkillsSkeleton,
+} from "./components/Skeleton";
+
+const SuspensePageFallback = () => {
+  const path = window.location.pathname;
+  if (path === "/about") return <ExperienceSkeleton />;
+  if (path === "/work") return <WorkSkeleton />;
+  if (path === "/contact") return <ContactSkeleton />;
+  if (path === "/skills") return <SkillsSkeleton />;
+  return <HeroSkeleton />;
+};
+
 const App = () => (
   <ErrorBoundary>
     <Navbar />
     <main>
-      <Suspense fallback={<div className="flex-center h-screen w-full">Loading...</div>}>
+      <Suspense fallback={<SuspensePageFallback />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />

@@ -13,6 +13,7 @@ import {
 import TitleHeader from "../components/TitleHeader";
 import { techStackIcons } from "../constants";
 import TechModel from "../components/models/tech_logos/TechModel";
+import { TechStackSkeleton, useSkeletonLoader } from "../components/Skeleton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,9 +22,12 @@ techStackIcons.forEach((model) => useGLTF.preload(model.modelPath));
 
 const TechStack = () => {
   const containerRef = useRef();
+  const { loading, showContent } = useSkeletonLoader(750);
 
   // Animate the tech cards in the skills section
   useGSAP(() => {
+    if (!showContent) return;
+
     // This animation is triggered when the user scrolls to the #skills wrapper
     // The animation starts when the top of the wrapper is at the center of the screen
     // The animation is staggered, meaning each card will animate in sequence
@@ -47,11 +51,15 @@ const TechStack = () => {
           start: "top center", // Start the animation when the top of the wrapper is at the center of the screen
         },
       }
-  );
-}, []);
+    );
+  }, [showContent]);
+
+  if (loading) {
+    return <TechStackSkeleton />;
+  }
 
   return (
-    <div id="skills" ref={containerRef} className="flex-center section-padding relative">
+    <div id="skills" ref={containerRef} className={`transition-opacity duration-500 ease-out ${showContent ? "opacity-100" : "opacity-0"} flex-center section-padding relative`}>
       <div className="w-full h-full md:px-10 px-5">
         <TitleHeader
           title="How I Can Contribute & My Key Skills"

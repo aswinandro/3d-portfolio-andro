@@ -471,3 +471,64 @@ section {
 .card:hover::before {
   opacity: 1;
 }
+
+/* Skeleton Shimmer Animations */
+.skeleton {
+  display: inline-block;
+  height: auto;
+  width: 100%;
+  background-color: #1a1a22;
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    #131316 25%,
+    #22222a 37%,
+    #131316 63%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer-anim 1.6s infinite linear;
+}
+
+.skeleton-shimmer-glow {
+  background: linear-gradient(
+    90deg,
+    #0c0c0f 20%,
+    #1c1428 40%,
+    #281e3a 50%,
+    #1c1428 60%,
+    #0c0c0f 80%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer-anim 2.2s infinite linear;
+}
+
+.skeleton-pulse {
+  background-color: #141417;
+  animation: skeleton-pulse-anim 1.8s infinite ease-in-out;
+}
+
+@keyframes skeleton-shimmer-anim {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes skeleton-pulse-anim {
+  0% {
+    opacity: 0.65;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.65;
+  }
+}
+

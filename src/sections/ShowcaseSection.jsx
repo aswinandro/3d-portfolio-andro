@@ -2,14 +2,18 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { WorkSkeleton, useSkeletonLoader } from "../components/Skeleton";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const AppShowcase = () => {
   const sectionRef = useRef(null);
+  const { loading, showContent } = useSkeletonLoader(750);
 
   useGSAP(
     () => {
+      if (!showContent) return;
+
       // Animation for the main section
       gsap.fromTo(
         sectionRef.current,
@@ -36,11 +40,15 @@ const AppShowcase = () => {
         }
       );
     },
-    { scope: sectionRef }
+    { scope: sectionRef, dependencies: [showContent] }
   );
 
+  if (loading) {
+    return <WorkSkeleton />;
+  }
+
   return (
-    <div id="work" ref={sectionRef} className="app-showcase">
+    <div id="work" ref={sectionRef} className={`transition-opacity duration-500 ease-out ${showContent ? "opacity-100" : "opacity-0"} app-showcase`}>
       <div className="w-full">
         <div className="showcaselayout">
           <div className="first-project-wrapper project-card">
