@@ -5,11 +5,16 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import TitleHeader from "../components/TitleHeader";
 import { skillsData } from "../constants";
+import { SkillsSkeleton, useSkeletonLoader } from "../components/Skeleton";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const SkillsPage = () => {
+  const { loading, showContent } = useSkeletonLoader(650);
+
   useGSAP(() => {
+    if (!showContent) return;
+
     // Animate the skill cards into view as the user scrolls
     gsap.fromTo(
       ".skill-card",
@@ -26,10 +31,14 @@ const SkillsPage = () => {
         },
       }
     );
-  }, []);
+  }, [showContent]);
+
+  if (loading) {
+    return <SkillsSkeleton />;
+  }
 
   return (
-    <section id="skills-page" className="flex-center section-padding">
+    <section id="skills-page" className={`transition-opacity duration-500 ease-out ${showContent ? "opacity-100" : "opacity-0"} flex-center section-padding`}>
       <div className="w-full h-full md:px-10 px-5">
         <TitleHeader
           title="My Technical Arsenal"

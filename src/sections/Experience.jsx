@@ -5,11 +5,16 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { expCards } from "../constants";
 import TitleHeader from "../components/TitleHeader";
 import GlowCard from "../components/GlowCard";
+import { ExperienceSkeleton, useSkeletonLoader } from "../components/Skeleton";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Experience = () => {
+  const { loading, showContent } = useSkeletonLoader(750);
+
   useGSAP(() => {
+    if (!showContent) return;
+
     // Loop through each timeline card and animate them in
     // as the user scrolls to each card
     gsap.utils.toArray(".timeline-card").forEach((card) => {
@@ -87,12 +92,16 @@ const Experience = () => {
         },
       });
     }, "<"); // position parameter - insert at the start of the animation
-  }, []);
+  }, [showContent]);
+
+  if (loading) {
+    return <ExperienceSkeleton />;
+  }
 
   return (
     <section
       id="experience"
-      className="flex-center md:mt-40 mt-20 section-padding xl:px-0"
+      className={`transition-opacity duration-500 ease-out ${showContent ? "opacity-100" : "opacity-0"} flex-center md:mt-40 mt-20 section-padding xl:px-0`}
     >
       <div className="w-full h-full md:px-20 px-5">
         <TitleHeader
