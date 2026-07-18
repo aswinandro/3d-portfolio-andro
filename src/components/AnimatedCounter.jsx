@@ -35,26 +35,41 @@ const AnimatedCounter = () => {
   }, []);
 
   return (
-    <div id="counter" ref={counterRef} className="px-5 xl:mt-0 mt-32 w-full flex justify-center">
+    <div id="counter" ref={counterRef} className="w-full flex justify-center">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 w-full max-w-3xl">
         {counterItems.map((item, index) => (
           <div
             key={index}
             ref={(el) => el && (countersRef.current[index] = el)}
-            className="rounded-xl p-6 flex flex-col justify-center items-center text-center"
+            className="counter-card rounded-xl p-5 flex flex-col justify-center items-center text-center relative overflow-hidden group"
             style={{
-              background: "rgba(17, 17, 24, 0.7)",
-              backdropFilter: "blur(20px)",
-              border: "1px solid rgba(255, 255, 255, 0.06)",
+              background: "rgba(17, 17, 24, 0.6)",
+              backdropFilter: "blur(16px)",
+              border: "1px solid rgba(255, 255, 255, 0.04)",
+              transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = "rgba(34, 197, 94, 0.2)";
+              e.currentTarget.style.boxShadow = "0 4px 24px rgba(34, 197, 94, 0.08)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.04)";
+              e.currentTarget.style.boxShadow = "none";
             }}
           >
+            {/* Subtle gradient line at top */}
             <div
-              className="counter-number text-4xl font-bold mb-1"
+              className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              style={{ background: "linear-gradient(90deg, transparent, #22c55e, transparent)" }}
+            />
+            <div
+              className="counter-number text-3xl md:text-4xl font-bold mb-1.5"
               style={{
                 background: "linear-gradient(135deg, #22c55e 0%, #3b82f6 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
+                fontFamily: "'JetBrains Mono', monospace",
               }}
             >
               0{item.suffix}
@@ -62,10 +77,10 @@ const AnimatedCounter = () => {
             <div
               className="text-sm md:text-base"
               style={{
-                color: "#94a3b8",
+                color: "#64748b",
                 fontFamily: "'JetBrains Mono', monospace",
-                fontSize: "0.75rem",
-                letterSpacing: "0.03em",
+                fontSize: "0.65rem",
+                letterSpacing: "0.04em",
               }}
             >
               {item.label}
