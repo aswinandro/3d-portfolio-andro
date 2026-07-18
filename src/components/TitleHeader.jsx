@@ -5,7 +5,13 @@ const TitleHeader = ({ title, sub }) => {
         <p>{sub}</p>
       </div>
       <div>
-        <h1 className="font-semibold md:text-5xl text-3xl text-center">
+        <h1
+          className="font-semibold md:text-5xl text-3xl text-center"
+          style={{
+            letterSpacing: "-0.03em",
+            lineHeight: "1.1",
+          }}
+        >
           {title}
         </h1>
       </div>

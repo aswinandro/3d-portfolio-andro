@@ -4,9 +4,15 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/images/fav.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0a0f" />
     <title>Aswin Andro &mdash; Tech Andro Portfolio</title>
 
-    <!-- ✅ JSON-LD Structured Data for SEO -->
+    <!-- Font preloading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- JSON-LD Structured Data for SEO -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -20,19 +26,37 @@
       ]
     }
     </script>
+
+    <!-- SVG Noise Filter for Grain Texture -->
+    <svg style="position:absolute;width:0;height:0;pointer-events:none">
+      <defs>
+        <filter id="grain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+          <feColorMatrix type="saturate" values="0"/>
+        </filter>
+      </defs>
+    </svg>
   </head>
   <body>
     <div id="root"></div>
 
-    <!-- ✅ Clickable Phone Number (Visible + Microdata Optimized) -->
-    <footer>
-      <!-- <p itemscope itemtype="https://schema.org/Person">
-        Call me at:
-        <a href="tel:+971545449182" itemprop="telephone">+971 54 544 9182</a>
-      </p> -->
-    </footer>
+    <!-- Preloader -->
+    <div id="preloader" style="position:fixed;inset:0;z-index:9999;background:#0a0a0f;display:flex;align-items:center;justify-content:center;transition:opacity 0.6s ease,transform 0.6s ease">
+      <div style="text-align:center">
+        <div style="font-family:'Inter',sans-serif;font-size:clamp(24px,5vw,40px);font-weight:800;color:#f8fafc;letter-spacing:-0.02em;opacity:0;animation:preloaderFadeIn 0.8s 0.2s forwards">
+          Aswin<span style="color:#22c55e">Andro</span>
+        </div>
+        <div style="width:120px;height:2px;background:#1e293b;margin:16px auto 0;border-radius:1px;overflow:hidden">
+          <div style="width:0%;height:100%;background:linear-gradient(90deg,#22c55e,#3b82f6);border-radius:1px;animation:preloaderProgress 1.5s 0.4s forwards ease-out"></div>
+        </div>
+      </div>
+    </div>
+    <style>
+      @keyframes preloaderFadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+      @keyframes preloaderProgress{to{width:100%}}
+    </style>
 
-    <!-- ✅ Main Script -->
+    <!-- Main Script -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

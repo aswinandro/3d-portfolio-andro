@@ -41,12 +41,35 @@ const AnimatedCounter = () => {
           <div
             key={index}
             ref={(el) => el && (countersRef.current[index] = el)}
-            className="bg-zinc-900 rounded-lg p-6 flex flex-col justify-center items-center text-center"
+            className="rounded-xl p-6 flex flex-col justify-center items-center text-center"
+            style={{
+              background: "rgba(17, 17, 24, 0.7)",
+              backdropFilter: "blur(20px)",
+              border: "1px solid rgba(255, 255, 255, 0.06)",
+            }}
           >
-            <div className="counter-number text-white-50 text-4xl font-bold mb-1">
+            <div
+              className="counter-number text-4xl font-bold mb-1"
+              style={{
+                background: "linear-gradient(135deg, #22c55e 0%, #3b82f6 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
               0{item.suffix}
             </div>
-            <div className="text-white-50 text-sm md:text-base">{item.label}</div>
+            <div
+              className="text-sm md:text-base"
+              style={{
+                color: "#94a3b8",
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: "0.75rem",
+                letterSpacing: "0.03em",
+              }}
+            >
+              {item.label}
+            </div>
           </div>
         ))}
       </div>

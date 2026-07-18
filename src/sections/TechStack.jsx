@@ -17,38 +17,32 @@ import { TechStackSkeleton, useSkeletonLoader } from "../components/Skeleton";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Preload all the tech stack models for a smoother experience
 techStackIcons.forEach((model) => useGLTF.preload(model.modelPath));
 
 const TechStack = () => {
   const containerRef = useRef();
   const { loading, showContent } = useSkeletonLoader(750);
 
-  // Animate the tech cards in the skills section
   useGSAP(() => {
     if (!showContent) return;
 
-    // This animation is triggered when the user scrolls to the #skills wrapper
-    // The animation starts when the top of the wrapper is at the center of the screen
-    // The animation is staggered, meaning each card will animate in sequence
-    // The animation ease is set to "power2.inOut", which is a slow-in fast-out ease
     gsap.fromTo(
       ".tech-card",
       {
-        // Initial values
-        y: 50, // Move the cards down by 50px
-        opacity: 0, // Set the opacity to 0
+        y: 50,
+        opacity: 0,
+        filter: "blur(5px)",
       },
       {
-        // Final values
-        y: 0, // Move the cards back to the top
-        opacity: 1, // Set the opacity to 1
-        duration: 1, // Duration of the animation
-        ease: "power2.inOut", // Ease of the animation
-        stagger: 0.2, // Stagger the animation by 0.2 seconds
+        y: 0,
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 1,
+        ease: "power2.inOut",
+        stagger: 0.15,
         scrollTrigger: {
-          trigger: "#skills", // Trigger the animation when the user scrolls to the #skills wrapper
-          start: "top center", // Start the animation when the top of the wrapper is at the center of the screen
+          trigger: "#skills",
+          start: "top center",
         },
       }
     );
@@ -59,24 +53,37 @@ const TechStack = () => {
   }
 
   return (
-    <div id="skills" ref={containerRef} className={`transition-opacity duration-500 ease-out ${showContent ? "opacity-100" : "opacity-0"} flex-center section-padding relative`}>
+    <div
+      id="skills"
+      ref={containerRef}
+      className={`transition-opacity duration-500 ease-out ${
+        showContent ? "opacity-100" : "opacity-0"
+      } flex-center section-padding relative`}
+    >
       <div className="w-full h-full md:px-10 px-5">
         <TitleHeader
           title="How I Can Contribute & My Key Skills"
-          sub="🤝 What I Bring to the Table"
+          sub="WHAT I BRING"
         />
         <div className="tech-grid">
           {techStackIcons.map((techStackIcon, i) => (
             <div
               key={techStackIcon.name}
-              className="card-border tech-card overflow-hidden group xl:rounded-full rounded-lg"
+              className="card-border tech-card overflow-hidden group xl:rounded-full rounded-lg relative"
+              style={{
+                transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+              }}
             >
               <div className="tech-card-animated-bg" />
               <div className="tech-card-content">
                 <View as="div" index={i + 1} className="tech-icon-wrapper">
                   <ambientLight intensity={1.5} />
                   <pointLight position={[10, 10, 2]} intensity={2} />
-                  <PerspectiveCamera makeDefault fov={25} position={[0, 0, 10]} />
+                  <PerspectiveCamera
+                    makeDefault
+                    fov={25}
+                    position={[0, 0, 10]}
+                  />
 
                   <TechModel model={techStackIcon} />
 
@@ -89,7 +96,15 @@ const TechStack = () => {
                   />
                 </View>
                 <div className="padding-x w-full">
-                  <p>{techStackIcon.name}</p>
+                  <p
+                    style={{
+                      fontFamily: "'JetBrains Mono', monospace",
+                      fontSize: "0.8rem",
+                      letterSpacing: "0.03em",
+                    }}
+                  >
+                    {techStackIcon.name}
+                  </p>
                 </div>
               </div>
             </div>
