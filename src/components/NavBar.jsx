@@ -1,21 +1,30 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { navLinks } from "../constants";
 
 const NavBar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = useRef(0);
+  const location = useLocation();
 
-  // Track scroll state for header
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 10);
+
+      if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
+        setHidden(true);
+      } else {
+        setHidden(false);
+      }
+      lastScrollY.current = currentScrollY;
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -27,7 +36,6 @@ const NavBar = () => {
     };
   }, [mobileMenuOpen]);
 
-  // Optional: close on Escape key
   useEffect(() => {
     if (!mobileMenuOpen) return;
     const onKeyDown = (e) => {
@@ -37,12 +45,25 @@ const NavBar = () => {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [mobileMenuOpen]);
 
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location]);
+
   const handleLinkClick = () => {
     setMobileMenuOpen(false);
   };
 
+  const isActive = (link) => {
+    if (link === "/") return location.pathname === "/";
+    return location.pathname.startsWith(link.split("?")[0].split("#")[0]);
+  };
+
   return (
-    <header className={`navbar ${scrolled ? "scrolled" : "not-scrolled"}`}>
+    <header
+      className={`navbar ${scrolled ? "scrolled" : "not-scrolled"} ${
+        hidden && !mobileMenuOpen ? "hidden-nav" : ""
+      }`}
+    >
       <div className="inner flex items-center justify-between px-4 py-3 md:px-8">
         {/* Logo */}
         <Link
@@ -50,18 +71,27 @@ const NavBar = () => {
           className="logo text-xl font-bold"
           onClick={handleLinkClick}
         >
-          Aswin Andro
+          Aswin<span>Andro</span>
         </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:block desktop">
-          <ul className="flex gap-6">
+          <ul className="flex gap-8">
             {navLinks.map(({ link, name }) => (
-              <li key={name} className="group">
+              <li key={name} className={`group ${isActive(link) ? "active" : ""}`}>
                 <Link to={link}>
                   <span>{name}</span>
                   <span className="underline" />
                 </Link>
+                {isActive(link) && (
+                  <span
+                    className="absolute -bottom-1 left-0 w-full h-0.5"
+                    style={{
+                      background: "linear-gradient(90deg, #a855f7, #3b82f6)",
+                      borderRadius: "1px",
+                    }}
+                  />
+                )}
               </li>
             ))}
           </ul>
@@ -101,16 +131,19 @@ const NavBar = () => {
         <div
           className={`
             md:hidden fixed inset-0 z-40 h-screen w-screen
-            bg-black/95 backdrop-blur-sm
             flex items-center justify-center
-            transition-all duration-300 ease-in-out
+            transition-all duration-500 ease-out
             ${mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
           `}
-          style={{ overscrollBehavior: "none" }}
+          style={{
+            background: "rgba(10, 10, 15, 0.95)",
+            backdropFilter: "blur(30px)",
+            WebkitBackdropFilter: "blur(30px)",
+            overscrollBehavior: "none",
+          }}
         >
-          {/* Close(X) button inside overlay */}
           <button
-            className="absolute top-6 right-6 text-white text-3xl z-50"
+            className="absolute top-6 right-6 text-white text-3xl z-50 opacity-50 hover:opacity-100 transition-opacity"
             aria-label="Close menu"
             onClick={() => setMobileMenuOpen(false)}
           >
@@ -118,17 +151,35 @@ const NavBar = () => {
           </button>
           <nav>
             <ul className="flex flex-col items-center gap-8 text-center">
-              {navLinks.map(({ link, name }) => (
+              {navLinks.map(({ link, name }, i) => (
                 <li
                   key={name}
-                  className="text-2xl font-semibold text-white/80 hover:text-white transition-colors"
+                  className="text-2xl font-semibold transition-all duration-300"
+                  style={{
+                    color: isActive(link) ? "#a855f7" : "rgba(248, 250, 252, 0.7)",
+                    transform: mobileMenuOpen
+                      ? "translateY(0) opacity(1)"
+                      : "translateY(20px) opacity(0)",
+                    transitionDelay: mobileMenuOpen ? `${i * 80}ms` : "0ms",
+                  }}
                 >
                   <Link to={link} onClick={handleLinkClick}>
                     {name}
                   </Link>
                 </li>
               ))}
-              <li className="mt-8">
+              <li
+                className="mt-8"
+                style={{
+                  transform: mobileMenuOpen
+                    ? "translateY(0) opacity(1)"
+                    : "translateY(20px) opacity(0)",
+                  transitionDelay: mobileMenuOpen
+                    ? `${navLinks.length * 80}ms`
+                    : "0ms",
+                  transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+              >
                 <Link
                   to="/contact"
                   className="contact-btn group text-xl"

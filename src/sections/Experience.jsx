@@ -4,10 +4,126 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { expCards } from "../constants";
 import TitleHeader from "../components/TitleHeader";
-import GlowCard from "../components/GlowCard";
+import useMouseGlow from "../hooks/useMouseGlow";
+import useScrollReveal from "../hooks/useScrollReveal";
+
 import { ExperienceSkeleton, useSkeletonLoader } from "../components/Skeleton";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const ExpCard = ({ card, index }) => {
+  const cardRef = useMouseGlow();
+  const ref = useScrollReveal("slideRight", { y: 0, x: -40, delay: index * 0.1 });
+
+  return (
+    <div
+      ref={(el) => {
+        ref && (el && ref.current && (ref.current = el));
+        cardRef && handleMouseMove && (el && el.addEventListener('mousemove', handleMouseMove));
+        cardRef && handleMouseMove && (el && el.addEventListener('mouseleave', handleMouseLeave));
+      }}
+      className="exp-card-wrapper group"
+    >
+      <div className="xl:w-2/6">
+        <div className="card-border rounded-xl relative z-10 h-full transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-xl">
+          <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-transparent via-"
+            style={{ 
+              from: "#a855f7", 
+              to: "#6366f1", 
+              start: "0%", 
+              end: "100%"
+            }}
+          />
+          <div className="p-6">
+            <div className="relative">
+              <div
+                className="absolute -inset-0.5 bg-gradient-to-r from-[]
+                rounded-xl blur opacity-20 group-hover:opacity-50 transition-opacity duration-500"
+                style={{ background: "linear-gradient(135deg, #a855f7, #6366f1)" }}
+              />
+              <div className="relative card-border rounded-xl bg-[#0a0a0f] p-5">
+                <div className="w-full flex justify-center mb-4">
+                  <div className="w-28 h-28 rounded-full flex items-center justify-center bg-gradient-to-br from-[#a855f7] to-[#6366f1] p-1">
+                    <img src={card.imgPath} alt="exp-img" className="w-full h-full rounded-full object-cover" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="xl:w-4/6">
+        <div className="flex items-start">
+          <div className="relative ml-0 xl:ml-12">
+            <div className="w-1 h-12 bg-gradient-to-b from-[]
+              via-[]
+              to-transparent"
+              style={{ background: "linear-gradient(180deg, #a855f7, transparent)" }}
+            />
+            <div
+              className="gradient-line w-1 h-full absolute top-0 left-0"
+              style={{ background: "linear-gradient(180deg, #a855f7, transparent)" }}
+            />
+          </div>
+
+          <div className="expText relative z-20 flex xl:gap-20 md:gap-10 gap-6 flex-1" ref={cardRef.glowStyle ? ref : null}>
+            <div className="timeline-logo w-16 h-16 flex-shrink-0 rounded-full overflow-hidden bg-[#111] border border-[]
+              border-[]
+              border-[]
+              border-[]" style={{ borderColor: "rgba(168, 85, 247, 0.3)" }}
+            >
+              <img src={card.logoPath} alt="logo" className="w-full h-full object-cover" />
+            </div>
+            <div className="flex-1">
+              <h1
+                className="font-semibold text-2xl xl:text-3xl mb-3"
+                style={{
+                  letterSpacing: "-0.02em",
+                  color: "#f8fafc",
+                }}
+              >
+                {card.title}
+              </h1>
+              <p
+                className="my-3 font-mono text-sm"
+                style={{
+                  color: "#94a3b8",
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: "0.75rem",
+                  letterSpacing: "0.02em",
+                }}
+              >
+                {card.date}
+              </p>
+              <p
+                className="italic text-sm mb-4"
+                style={{ color: "#a855f7" }}
+              >
+                Responsibilities
+              </p>
+              <ul className="list-none space-y-3">
+                {card.responsibilities.map((responsibility, idx) => (
+                  <li
+                    key={idx}
+                    className="text-sm leading-relaxed relative pl-6"
+                    style={{ color: "#94a3b8" }}
+                  >
+                    <span
+                      className="absolute left-0 top-1.5 w-1.5 h-1.5 rounded-full"
+                      style={{ background: "#a855f7" }}
+                    />
+                    {responsibility}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Experience = () => {
   const { loading, showContent } = useSkeletonLoader(750);
@@ -15,51 +131,27 @@ const Experience = () => {
   useGSAP(() => {
     if (!showContent) return;
 
-    // Loop through each timeline card and animate them in
-    // as the user scrolls to each card
-    gsap.utils.toArray(".timeline-card").forEach((card) => {
-      // Animate the card coming in from the left
-      // and fade in
+    gsap.utils.toArray(".exp-card-wrapper").forEach((card, index) => {
       gsap.from(card, {
-        // Move the card in from the left
-        xPercent: -100,
-        // Make the card invisible at the start
+        xPercent: index % 2 === 0 ? -100 : 100,
         opacity: 0,
-        // Set the origin of the animation to the left side of the card
-        transformOrigin: "left left",
-        // Animate over 1 second
         duration: 1,
-        // Use a power2 ease-in-out curve
         ease: "power2.inOut",
-        // Trigger the animation when the card is 80% of the way down the screen
         scrollTrigger: {
-          // The card is the trigger element
           trigger: card,
-          // Trigger the animation when the card is 80% down the screen
           start: "top 80%",
         },
       });
     });
 
-    // Animate the timeline height as the user scrolls
-    // from the top of the timeline to 70% down the screen
-    // The timeline height should scale down from 1 to 0
-    // as the user scrolls up the screen
     gsap.to(".timeline", {
-      // Set the origin of the animation to the bottom of the timeline
       transformOrigin: "bottom bottom",
-      // Animate the timeline height over 1 second
       ease: "power1.inOut",
-      // Trigger the animation when the timeline is at the top of the screen
-      // and end it when the timeline is at 70% down the screen
       scrollTrigger: {
         trigger: ".timeline",
         start: "top center",
         end: "70% center",
-        // Update the animation as the user scrolls
         onUpdate: (self) => {
-          // Scale the timeline height as the user scrolls
-          // from 1 to 0 as the user scrolls up the screen
           gsap.to(".timeline", {
             scaleY: 1 - self.progress,
           });
@@ -67,31 +159,18 @@ const Experience = () => {
       },
     });
 
-    // Loop through each expText element and animate them in
-    // as the user scrolls to each text element
     gsap.utils.toArray(".expText").forEach((text) => {
-      // Animate the text opacity from 0 to 1
-      // and move it from the left to its final position
-      // over 1 second with a power2 ease-in-out curve
       gsap.from(text, {
-        // Set the opacity of the text to 0
         opacity: 0,
-        // Move the text from the left to its final position
-        // (xPercent: 0 means the text is at its final position)
         xPercent: 0,
-        // Animate over 1 second
         duration: 1,
-        // Use a power2 ease-in-out curve
         ease: "power2.inOut",
-        // Trigger the animation when the text is 60% down the screen
         scrollTrigger: {
-          // The text is the trigger element
           trigger: text,
-          // Trigger the animation when the text is 60% down the screen
           start: "top 60%",
         },
       });
-    }, "<"); // position parameter - insert at the start of the animation
+    });
   }, [showContent]);
 
   if (loading) {
@@ -101,56 +180,19 @@ const Experience = () => {
   return (
     <section
       id="experience"
-      className={`transition-opacity duration-500 ease-out ${showContent ? "opacity-100" : "opacity-0"} flex-center md:mt-40 mt-20 section-padding xl:px-0`}
+      className={`transition-opacity duration-500 ease-out ${
+        showContent ? "opacity-100" : "opacity-0"
+      } flex-center md:mt-40 mt-20 section-padding xl:px-0`}
     >
       <div className="w-full h-full md:px-20 px-5">
         <TitleHeader
           title="Professional Work Experience"
-          sub="💼 My Career Overview"
+          sub="CAREER OVERVIEW"
         />
         <div className="mt-32 relative">
           <div className="relative z-50 xl:space-y-32 space-y-10">
-            {expCards.map((card) => (
-              <div key={card.title} className="exp-card-wrapper">
-                <div className="xl:w-2/6">
-                  <GlowCard card={card}>
-                    <div>
-                      <img src={card.imgPath} alt="exp-img" />
-                    </div>
-                  </GlowCard>
-                </div>
-                <div className="xl:w-4/6">
-                  <div className="flex items-start">
-                    <div className="timeline-wrapper">
-                      <div className="timeline" />
-                      <div className="gradient-line w-1 h-full" />
-                    </div>
-                    <div className="expText flex xl:gap-20 md:gap-10 gap-5 relative z-20">
-                      <div className="timeline-logo">
-                        <img src={card.logoPath} alt="logo" />
-                      </div>
-                      <div>
-                        <h1 className="font-semibold text-3xl">{card.title}</h1>
-                        <p className="my-5 text-white-50">
-                          🗓️&nbsp;{card.date}
-                        </p>
-                        <p className="text-[#839CB5] italic">
-                          Responsibilities
-                        </p>
-                        <ul className="list-disc ms-5 mt-5 flex flex-col gap-5 text-white-50">
-                          {card.responsibilities.map(
-                            (responsibility, index) => (
-                              <li key={index} className="text-lg">
-                                {responsibility}
-                              </li>
-                            )
-                          )}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            {expCards.map((card, index) => (
+              <ExpCard key={card.title} card={card} index={index} />
             ))}
           </div>
         </div>
