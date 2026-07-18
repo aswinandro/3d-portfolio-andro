@@ -147,7 +147,7 @@ const Hero = () => {
           className="bg-image w-full h-full object-cover opacity-40"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] via-[#0a0a0f]/80 to-[#0a0a0f]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,_rgba(34,197,94,0.06)_0%,_transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,_rgba(168, 85, 247,0.06)_0%,_transparent_60%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_60%,_rgba(59,130,246,0.04)_0%,_transparent_50%)]" />
       </div>
 
@@ -175,7 +175,7 @@ const Hero = () => {
             width: `${Math.random() * 5 + 2}px`,
             height: `${Math.random() * 5 + 2}px`,
             background: i % 3 === 0
-              ? "rgba(34, 197, 94, 0.25)"
+              ? "rgba(168, 85, 247, 0.25)"
               : i % 3 === 1
               ? "rgba(59, 130, 246, 0.2)"
               : "rgba(168, 85, 247, 0.15)",
@@ -211,7 +211,7 @@ const Hero = () => {
             >
               <span
                 className="inline-block w-8 h-px"
-                style={{ background: "linear-gradient(90deg, #22c55e, transparent)" }}
+                style={{ background: "linear-gradient(90deg, #a855f7, transparent)" }}
               />
               PORTFOLIO 2025
             </div>
@@ -237,14 +237,14 @@ const Hero = () => {
                             alt=""
                             className="w-8 h-8 md:w-10 md:h-10 rounded-lg object-contain"
                             style={{
-                              background: "rgba(34, 197, 94, 0.08)",
-                              border: "1px solid rgba(34, 197, 94, 0.15)",
+                              background: "rgba(168, 85, 247, 0.08)",
+                              border: "1px solid rgba(168, 85, 247, 0.15)",
                               padding: "4px",
                             }}
                           />
                           <span
                             style={{
-                              background: "linear-gradient(135deg, #22c55e 0%, #3b82f6 100%)",
+                              background: "linear-gradient(135deg, #a855f7 0%, #3b82f6 100%)",
                               WebkitBackgroundClip: "text",
                               WebkitTextFillColor: "transparent",
                               backgroundClip: "text",
@@ -265,7 +265,7 @@ const Hero = () => {
                 that Deliver{" "}
                 <span
                   style={{
-                    background: "linear-gradient(135deg, #22c55e 0%, #06b6d4 100%)",
+                    background: "linear-gradient(135deg, #a855f7 0%, #06b6d4 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
@@ -288,7 +288,7 @@ const Hero = () => {
               <div className="hero-subtitle-line flex items-center gap-2">
                 <span
                   style={{
-                    color: "#22c55e",
+                    color: "#a855f7",
                     fontFamily: "'JetBrains Mono', monospace",
                     fontSize: "0.75rem",
                   }}
@@ -303,7 +303,7 @@ const Hero = () => {
                   <span
                     className="inline-block w-0.5 h-5 ml-0.5 align-middle"
                     style={{
-                      background: "#22c55e",
+                      background: "#a855f7",
                       opacity: showContent ? 1 : 0,
                     }}
                   />
@@ -340,9 +340,9 @@ const Hero = () => {
                   fontWeight: 500,
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(34,197,94,0.3)";
-                  e.currentTarget.style.color = "#22c55e";
-                  e.currentTarget.style.background = "rgba(34,197,94,0.05)";
+                  e.currentTarget.style.borderColor = "rgba(168, 85, 247,0.3)";
+                  e.currentTarget.style.color = "#a855f7";
+                  e.currentTarget.style.background = "rgba(168, 85, 247,0.05)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";

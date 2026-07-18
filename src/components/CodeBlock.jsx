@@ -53,7 +53,7 @@ const CodeBlock = () => {
         <div className="flex gap-1.5">
           <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#ef4444" }} />
           <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#f59e0b" }} />
-          <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#22c55e" }} />
+          <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#a855f7" }} />
         </div>
         <span
           className="ml-2 text-xs"
@@ -93,7 +93,7 @@ const CodeBlock = () => {
               <span
                 className="inline-block w-1.5 h-3.5 ml-0.5"
                 style={{
-                  background: "#22c55e",
+                  background: "#a855f7",
                   opacity: showCursor ? 1 : 0,
                   transition: "opacity 0.1s",
                 }}

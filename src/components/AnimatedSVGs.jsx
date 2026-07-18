@@ -3,7 +3,7 @@ const AnimatedSVGs = () => {
     {
       id: "code",
       path: "M16 18l6-6-6-6M8 6l-6 6 6 6",
-      color: "#22c55e",
+      color: "#a855f7",
       size: 32,
       style: { top: "12%", left: "8%" },
       delay: 0,
@@ -57,7 +57,7 @@ const AnimatedSVGs = () => {
     {
       id: "cpu",
       path: "M9 3v2m6-2v2M9 19v2m6-2v2M3 9h2m-2 6h2m14-6h2m-2 6h2M7 7h10v10H7zM5 5h2m-2 2h2m12-2h2m-2 2h2M5 17h2m-2-2h2m12 2h2m-2-2h2",
-      color: "#22c55e",
+      color: "#a855f7",
       size: 26,
       style: { top: "55%", left: "3%" },
       delay: 3,

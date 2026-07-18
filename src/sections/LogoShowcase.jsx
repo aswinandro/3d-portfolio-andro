@@ -1,16 +1,16 @@
+import useScrollReveal from "../hooks/useScrollReveal";
 import { logoIconsList } from "../constants";
 import { LogoShowcaseSkeleton, useSkeletonLoader } from "../components/Skeleton";
 
-const LogoIcon = ({ icon }) => {
-  return (
-    <div className="flex-none flex-center marquee-item opacity-40 hover:opacity-70 transition-opacity duration-300">
-      <img src={icon.imgPath} alt="Company logo" className="h-8 md:h-10 object-contain" />
-    </div>
-  );
-};
+const LogoIcon = ({ icon }) => (
+  <div className="flex-none flex-center marquee-item opacity-30 hover:opacity-60 transition-all duration-500 hover:scale-105">
+    <img src={icon.imgPath} alt="Company logo" className="h-7 md:h-9 object-contain grayscale hover:grayscale-0 transition-all duration-500" />
+  </div>
+);
 
 const LogoShowcase = () => {
   const { loading, showContent } = useSkeletonLoader(600);
+  const ref = useScrollReveal("fadeUp", { y: 20 });
 
   if (loading) {
     return <LogoShowcaseSkeleton />;
@@ -18,39 +18,32 @@ const LogoShowcase = () => {
 
   return (
     <div
+      ref={ref}
       className={`transition-opacity duration-500 ease-out ${
         showContent ? "opacity-100" : "opacity-0"
-      } md:my-20 my-10 relative`}
+      } md:my-16 my-10 relative`}
     >
-      <div className="gradient-edge" />
-      <div className="gradient-edge" />
-
-      {/* Top border line */}
+      {/* Top line */}
       <div
-        className="w-full h-[1px] mb-10"
+        className="w-full h-[1px] mb-8"
         style={{
-          background:
-            "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%)",
+          background: "linear-gradient(90deg, transparent 0%, rgba(168,85,247,0.15) 50%, transparent 100%)",
         }}
       />
 
-      <div className="marquee h-52">
-        <div className="marquee-box md:gap-16 gap-8">
-          {logoIconsList.map((icon, index) => (
-            <LogoIcon key={`a-${index}`} icon={icon} />
-          ))}
-          {logoIconsList.map((icon, index) => (
-            <LogoIcon key={`b-${index}`} icon={icon} />
+      <div className="marquee h-44">
+        <div className="marquee-box md:gap-14 gap-6">
+          {[...logoIconsList, ...logoIconsList].map((icon, index) => (
+            <LogoIcon key={index} icon={icon} />
           ))}
         </div>
       </div>
 
-      {/* Bottom border line */}
+      {/* Bottom line */}
       <div
-        className="w-full h-[1px] mt-10"
+        className="w-full h-[1px] mt-8"
         style={{
-          background:
-            "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%)",
+          background: "linear-gradient(90deg, transparent 0%, rgba(168,85,247,0.15) 50%, transparent 100%)",
         }}
       />
     </div>

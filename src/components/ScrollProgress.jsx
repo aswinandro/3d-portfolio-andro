@@ -53,7 +53,7 @@ const ScrollProgress = () => {
         style={{
           fontFamily: "'JetBrains Mono', monospace",
           fontSize: "0.65rem",
-          color: "#22c55e",
+          color: "#a855f7",
           letterSpacing: "0.1em",
           opacity: activeSection ? 1 : 0,
           transition: "opacity 0.3s ease",
@@ -81,7 +81,7 @@ const ScrollProgress = () => {
             left: 0,
             width: "100%",
             height: `${progress}%`,
-            background: "linear-gradient(180deg, #22c55e 0%, #3b82f6 100%)",
+            background: "linear-gradient(180deg, #a855f7 0%, #3b82f6 100%)",
             borderRadius: "1px",
             transition: "height 0.1s linear",
           }}
@@ -109,12 +109,12 @@ const ScrollProgress = () => {
               borderRadius: "50%",
               background:
                 activeSection === `0${num}`
-                  ? "#22c55e"
+                  ? "#a855f7"
                   : "rgba(255, 255, 255, 0.1)",
               transition: "all 0.3s ease",
               boxShadow:
                 activeSection === `0${num}`
-                  ? "0 0 8px rgba(34, 197, 94, 0.5)"
+                  ? "0 0 8px rgba(168, 85, 247, 0.5)"
                   : "none",
             }}
           />

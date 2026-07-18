@@ -49,8 +49,8 @@ const AnimatedCounter = () => {
               transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "rgba(34, 197, 94, 0.2)";
-              e.currentTarget.style.boxShadow = "0 4px 24px rgba(34, 197, 94, 0.08)";
+              e.currentTarget.style.borderColor = "rgba(168, 85, 247, 0.2)";
+              e.currentTarget.style.boxShadow = "0 4px 24px rgba(168, 85, 247, 0.08)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.04)";
@@ -60,12 +60,12 @@ const AnimatedCounter = () => {
             {/* Subtle gradient line at top */}
             <div
               className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              style={{ background: "linear-gradient(90deg, transparent, #22c55e, transparent)" }}
+              style={{ background: "linear-gradient(90deg, transparent, #a855f7, transparent)" }}
             />
             <div
               className="counter-number text-3xl md:text-4xl font-bold mb-1.5"
               style={{
-                background: "linear-gradient(135deg, #22c55e 0%, #3b82f6 100%)",
+                background: "linear-gradient(135deg, #a855f7 0%, #3b82f6 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",

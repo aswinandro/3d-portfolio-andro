@@ -126,12 +126,12 @@ const Contact = () => {
                   type="submit"
                   className="w-full py-4 rounded-lg font-semibold text-white flex items-center justify-center gap-3 transition-all duration-300 cursor-pointer"
                   style={{
-                    background: "linear-gradient(135deg, #22c55e 0%, #16a34a 100%)",
-                    border: "1px solid rgba(34, 197, 94, 0.3)",
+                    background: "linear-gradient(135deg, #a855f7 0%, #7c3aed 100%)",
+                    border: "1px solid rgba(168, 85, 247, 0.3)",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.boxShadow =
-                      "0 0 30px rgba(34, 197, 94, 0.3)";
+                      "0 0 30px rgba(168, 85, 247, 0.3)";
                     e.currentTarget.style.transform = "translateY(-1px)";
                   }}
                   onMouseLeave={(e) => {

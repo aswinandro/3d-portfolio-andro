@@ -65,12 +65,12 @@ const TechRadar = ({ skills, size = 300 }) => {
         centerX, centerY, 0,
         centerX, centerY, maxRadius
       );
-      gradient.addColorStop(0, "rgba(34, 197, 94, 0.15)");
+      gradient.addColorStop(0, "rgba(168, 85, 247, 0.15)");
       gradient.addColorStop(1, "rgba(59, 130, 246, 0.05)");
       ctx.fillStyle = gradient;
       ctx.fill();
 
-      ctx.strokeStyle = "rgba(34, 197, 94, 0.4)";
+      ctx.strokeStyle = "rgba(168, 85, 247, 0.4)";
       ctx.lineWidth = 1.5;
       ctx.stroke();
 
@@ -84,13 +84,13 @@ const TechRadar = ({ skills, size = 300 }) => {
         // Point
         ctx.beginPath();
         ctx.arc(x, y, hoveredSkill === i ? 5 : 3, 0, Math.PI * 2);
-        ctx.fillStyle = hoveredSkill === i ? "#22c55e" : "rgba(34, 197, 94, 0.8)";
+        ctx.fillStyle = hoveredSkill === i ? "#a855f7" : "rgba(168, 85, 247, 0.8)";
         ctx.fill();
 
         if (hoveredSkill === i) {
           ctx.beginPath();
           ctx.arc(x, y, 8, 0, Math.PI * 2);
-          ctx.strokeStyle = "rgba(34, 197, 94, 0.3)";
+          ctx.strokeStyle = "rgba(168, 85, 247, 0.3)";
           ctx.lineWidth = 1;
           ctx.stroke();
         }
@@ -101,7 +101,7 @@ const TechRadar = ({ skills, size = 300 }) => {
         const ly = centerY + Math.sin(angle) * labelRadius;
 
         ctx.font = `${hoveredSkill === i ? "600" : "400"} 10px "JetBrains Mono", monospace`;
-        ctx.fillStyle = hoveredSkill === i ? "#22c55e" : "rgba(148, 163, 184, 0.7)";
+        ctx.fillStyle = hoveredSkill === i ? "#a855f7" : "rgba(148, 163, 184, 0.7)";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText(skill.name, lx, ly);

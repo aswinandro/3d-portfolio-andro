@@ -18,7 +18,7 @@ const ScrollIndicator = () => {
         <div
           className="w-1 h-2 rounded-full"
           style={{
-            background: "#22c55e",
+            background: "#a855f7",
             animation: "scrollDot 2s ease-in-out infinite",
           }}
         />

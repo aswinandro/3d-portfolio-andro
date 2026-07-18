@@ -87,7 +87,7 @@ const NavBar = () => {
                   <span
                     className="absolute -bottom-1 left-0 w-full h-0.5"
                     style={{
-                      background: "linear-gradient(90deg, #22c55e, #3b82f6)",
+                      background: "linear-gradient(90deg, #a855f7, #3b82f6)",
                       borderRadius: "1px",
                     }}
                   />
@@ -156,7 +156,7 @@ const NavBar = () => {
                   key={name}
                   className="text-2xl font-semibold transition-all duration-300"
                   style={{
-                    color: isActive(link) ? "#22c55e" : "rgba(248, 250, 252, 0.7)",
+                    color: isActive(link) ? "#a855f7" : "rgba(248, 250, 252, 0.7)",
                     transform: mobileMenuOpen
                       ? "translateY(0) opacity(1)"
                       : "translateY(20px) opacity(0)",

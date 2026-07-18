@@ -81,7 +81,7 @@ const AppShowcase = () => {
             <div className="project project-card">
               <div
                 className="image-wrapper"
-                style={{ background: "rgba(34, 197, 94, 0.03)" }}
+                style={{ background: "rgba(168, 85, 247, 0.03)" }}
               >
                 <img
                   src="/images/project2.png"
@@ -109,7 +109,7 @@ const AppShowcase = () => {
             <div className="project project-card">
               <div
                 className="image-wrapper"
-                style={{ background: "rgba(34, 197, 94, 0.03)" }}
+                style={{ background: "rgba(168, 85, 247, 0.03)" }}
               >
                 <img src="/images/project5.png" alt="Three.js Portfolio" />
               </div>

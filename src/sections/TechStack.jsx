@@ -26,7 +26,7 @@ const categories = [
 ];
 
 const categoryColors = {
-  Languages: "#22c55e",
+  Languages: "#a855f7",
   Frameworks: "#3b82f6",
   Frontend: "#a855f7",
   Databases: "#f59e0b",
@@ -175,7 +175,7 @@ const SkillBar = ({ name, level, delay = 0, color }) => {
           fontSize: "0.7rem",
           transition: "color 0.3s",
         }}
-        onMouseEnter={(e) => (e.target.style.color = color || "#22c55e")}
+        onMouseEnter={(e) => (e.target.style.color = color || "#a855f7")}
         onMouseLeave={(e) => (e.target.style.color = "#94a3b8")}
       >
         {name}
@@ -188,7 +188,7 @@ const SkillBar = ({ name, level, delay = 0, color }) => {
           className="h-full rounded-full"
           style={{
             width: `${width}%`,
-            background: `linear-gradient(90deg, ${color || "#22c55e"}, ${color || "#3b82f6"}88)`,
+            background: `linear-gradient(90deg, ${color || "#a855f7"}, ${color || "#3b82f6"}88)`,
             transition: "width 1s cubic-bezier(0.16, 1, 0.3, 1)",
             transitionDelay: `${delay}ms`,
           }}
@@ -197,7 +197,7 @@ const SkillBar = ({ name, level, delay = 0, color }) => {
       <span
         className="w-8 flex-none"
         style={{
-          color: color || "#22c55e",
+          color: color || "#a855f7",
           fontFamily: "'JetBrains Mono', monospace",
           fontSize: "0.65rem",
         }}
@@ -309,7 +309,7 @@ const InteractiveTerminal = () => {
         <div className="flex gap-1.5">
           <div className="w-3 h-3 rounded-full" style={{ background: "#ef4444" }} />
           <div className="w-3 h-3 rounded-full" style={{ background: "#f59e0b" }} />
-          <div className="w-3 h-3 rounded-full" style={{ background: "#22c55e" }} />
+          <div className="w-3 h-3 rounded-full" style={{ background: "#a855f7" }} />
         </div>
         <span className="ml-3 text-xs" style={{ color: "#475569", letterSpacing: "0.05em" }}>
           aswin@portfolio ~ %
@@ -324,7 +324,7 @@ const InteractiveTerminal = () => {
         {initialLines.slice(0, lineCount).map((line, i) => (
           <div key={`init-${i}`} className="flex items-center gap-2 mb-1">
             {line.startsWith("$") ? (
-              <span style={{ color: "#22c55e" }}>{line}</span>
+              <span style={{ color: "#a855f7" }}>{line}</span>
             ) : line.startsWith(">") ? (
               <span style={{ color: "#f8fafc" }}>{line}</span>
             ) : (
@@ -335,7 +335,7 @@ const InteractiveTerminal = () => {
 
         {history.map((entry, i) => (
           <div key={`hist-${i}`} className="mb-1 whitespace-pre-wrap">
-            <span style={{ color: entry.type === "input" ? "#22c55e" : "#94a3b8" }}>
+            <span style={{ color: entry.type === "input" ? "#a855f7" : "#94a3b8" }}>
               {entry.text}
             </span>
           </div>
@@ -343,7 +343,7 @@ const InteractiveTerminal = () => {
 
         {lineCount >= initialLines.length && (
           <div className="flex items-center gap-2 mt-1">
-            <span style={{ color: "#22c55e" }}>$</span>
+            <span style={{ color: "#a855f7" }}>$</span>
             <input
               ref={inputRef}
               type="text"
@@ -355,7 +355,7 @@ const InteractiveTerminal = () => {
                 color: "#f8fafc",
                 fontFamily: "'JetBrains Mono', monospace",
                 fontSize: "0.85rem",
-                caretColor: "#22c55e",
+                caretColor: "#a855f7",
               }}
               placeholder='type "help" for commands...'
               spellCheck={false}
@@ -491,7 +491,7 @@ const FilterTabs = ({ active, onChange }) => (
   <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
     {categories.map((cat) => {
       const isActive = active === cat;
-      const color = cat === "All" ? "#22c55e" : categoryColors[cat] || "#22c55e";
+      const color = cat === "All" ? "#a855f7" : categoryColors[cat] || "#a855f7";
       return (
         <button
           key={cat}
@@ -532,7 +532,7 @@ const StatsBar = () => {
           <div
             className="font-bold"
             style={{
-              background: "linear-gradient(135deg, #22c55e, #3b82f6)",
+              background: "linear-gradient(135deg, #a855f7, #3b82f6)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -712,7 +712,7 @@ const TechStack = () => {
               category={skill.category}
               icon={skill.icon}
               skills={skill.skills}
-              color={categoryColors[skill.category] || "#22c55e"}
+              color={categoryColors[skill.category] || "#a855f7"}
               isExpanded={expandedCard === skill.category}
               onToggle={() =>
                 setExpandedCard((prev) =>
@@ -742,8 +742,8 @@ const TechStack = () => {
                   border: "1px solid rgba(255, 255, 255, 0.04)",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(34, 197, 94, 0.08)";
-                  e.currentTarget.style.borderColor = "rgba(34, 197, 94, 0.2)";
+                  e.currentTarget.style.background = "rgba(168, 85, 247, 0.08)";
+                  e.currentTarget.style.borderColor = "rgba(168, 85, 247, 0.2)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = "rgba(30, 41, 59, 0.3)";
