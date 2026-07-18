@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,6 +10,8 @@ import { TechStackSkeleton, useSkeletonLoader } from "../components/Skeleton";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* ─────────── CONSTANTS ─────────── */
+
 const roles = [
   "Fullstack Developer",
   "DevOps Engineer",
@@ -18,6 +20,47 @@ const roles = [
   "System Designer",
 ];
 
+const categories = [
+  "All",
+  ...skillsData.map((d) => d.category),
+];
+
+const categoryColors = {
+  Languages: "#22c55e",
+  Frameworks: "#3b82f6",
+  Frontend: "#a855f7",
+  Databases: "#f59e0b",
+  "Cloud & DevOps": "#06b6d4",
+  "Architecture & Patterns": "#ec4899",
+  "Observability & Logging": "#f97316",
+  "Testing & Quality": "#14b8a6",
+  "Payments & Security": "#ef4444",
+};
+
+const proficiencyMap = {
+  Languages: 92,
+  Frameworks: 88,
+  Frontend: 90,
+  Databases: 85,
+  "Cloud & DevOps": 87,
+  "Architecture & Patterns": 83,
+  "Observability & Logging": 78,
+  "Testing & Quality": 80,
+  "Payments & Security": 82,
+};
+
+const terminalCommands = {
+  help: "Available: skills, radar, stats, clear, whoami, experience",
+  whoami: "Aswin Andro — Fullstack Developer & DevOps Engineer",
+  skills: skillsData.map((d) => `  ${d.category}: ${d.skills.length} skills`).join("\n"),
+  radar: "Opening skill proficiency radar...",
+  stats: `Total Skills: ${skillsData.reduce((a, d) => a + d.skills.length, 0)}\nCategories: ${skillsData.length}\nYears: 6+\nProjects: 25+`,
+  experience: "6+ years across Java, React, Cloud, DevOps, and APIs",
+  clear: "__CLEAR__",
+};
+
+/* ─────────── HOOKS ─────────── */
+
 const useTypingAnimation = (words, typingSpeed = 80, deletingSpeed = 40, pauseTime = 2000) => {
   const [displayText, setDisplayText] = useState("");
   const [wordIndex, setWordIndex] = useState(0);
@@ -25,7 +68,6 @@ const useTypingAnimation = (words, typingSpeed = 80, deletingSpeed = 40, pauseTi
 
   useEffect(() => {
     const currentWord = words[wordIndex];
-
     const timeout = setTimeout(
       () => {
         if (!isDeleting) {
@@ -43,16 +85,138 @@ const useTypingAnimation = (words, typingSpeed = 80, deletingSpeed = 40, pauseTi
       },
       isDeleting ? deletingSpeed : typingSpeed
     );
-
     return () => clearTimeout(timeout);
   }, [displayText, isDeleting, wordIndex, words, typingSpeed, deletingSpeed, pauseTime]);
 
   return displayText;
 };
 
-const TerminalHeader = () => {
+/* ─────────── COMPONENTS ─────────── */
+
+const ProficiencyArc = ({ percent, color, size = 60, label }) => {
+  const [animatedPercent, setAnimatedPercent] = useState(0);
+  const radius = (size - 8) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (animatedPercent / 100) * circumference;
+
+  useEffect(() => {
+    const timer = setTimeout(() => setAnimatedPercent(percent), 300);
+    return () => clearTimeout(timer);
+  }, [percent]);
+
+  return (
+    <div className="flex flex-col items-center gap-1">
+      <svg width={size} height={size} className="-rotate-90">
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill="none"
+          stroke="rgba(255,255,255,0.04)"
+          strokeWidth="3"
+        />
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill="none"
+          stroke={color}
+          strokeWidth="3"
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
+          strokeLinecap="round"
+          style={{ transition: "stroke-dashoffset 1.2s cubic-bezier(0.16, 1, 0.3, 1)" }}
+        />
+      </svg>
+      <span
+        className="font-bold"
+        style={{
+          color,
+          fontSize: size > 50 ? "0.9rem" : "0.75rem",
+          fontFamily: "'JetBrains Mono', monospace",
+          marginTop: `-${size / 2 + 14}px`,
+          marginBottom: `${size / 2 - 10}px`,
+        }}
+      >
+        {animatedPercent}%
+      </span>
+      {label && (
+        <span
+          className="text-center leading-tight"
+          style={{
+            color: "#94a3b8",
+            fontSize: "0.6rem",
+            fontFamily: "'JetBrains Mono', monospace",
+            maxWidth: size + 10,
+          }}
+        >
+          {label}
+        </span>
+      )}
+    </div>
+  );
+};
+
+const SkillBar = ({ name, level, delay = 0, color }) => {
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setWidth(level), delay);
+    return () => clearTimeout(timer);
+  }, [level, delay]);
+
+  return (
+    <div className="flex items-center gap-3 group/bar">
+      <span
+        className="w-28 text-right flex-none truncate"
+        style={{
+          color: "#94a3b8",
+          fontFamily: "'JetBrains Mono', monospace",
+          fontSize: "0.7rem",
+          transition: "color 0.3s",
+        }}
+        onMouseEnter={(e) => (e.target.style.color = color || "#22c55e")}
+        onMouseLeave={(e) => (e.target.style.color = "#94a3b8")}
+      >
+        {name}
+      </span>
+      <div
+        className="flex-1 h-1.5 rounded-full overflow-hidden"
+        style={{ background: "rgba(255, 255, 255, 0.04)" }}
+      >
+        <div
+          className="h-full rounded-full"
+          style={{
+            width: `${width}%`,
+            background: `linear-gradient(90deg, ${color || "#22c55e"}, ${color || "#3b82f6"}88)`,
+            transition: "width 1s cubic-bezier(0.16, 1, 0.3, 1)",
+            transitionDelay: `${delay}ms`,
+          }}
+        />
+      </div>
+      <span
+        className="w-8 flex-none"
+        style={{
+          color: color || "#22c55e",
+          fontFamily: "'JetBrains Mono', monospace",
+          fontSize: "0.65rem",
+        }}
+      >
+        {level}%
+      </span>
+    </div>
+  );
+};
+
+const InteractiveTerminal = () => {
   const typedText = useTypingAnimation(roles);
   const [lineCount, setLineCount] = useState(0);
+  const [history, setHistory] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+  const [commandHistory, setCommandHistory] = useState([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const inputRef = useRef(null);
+  const terminalRef = useRef(null);
 
   useEffect(() => {
     const lines = [
@@ -73,7 +237,54 @@ const TerminalHeader = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const terminalLines = [
+  useEffect(() => {
+    if (terminalRef.current) {
+      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+    }
+  }, [history, lineCount]);
+
+  const handleCommand = useCallback((cmd) => {
+    const trimmed = cmd.trim().toLowerCase();
+    const response = terminalCommands[trimmed];
+
+    setHistory((prev) => [
+      ...prev,
+      { type: "input", text: `$ ${cmd}` },
+      ...(response === "__CLEAR__"
+        ? []
+        : [{ type: "output", text: response || `command not found: ${cmd}. Type "help" for available commands.` }]),
+    ]);
+    setCommandHistory((prev) => [...prev, cmd]);
+    setHistoryIndex(-1);
+    setInputValue("");
+  }, []);
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && inputValue.trim()) {
+      handleCommand(inputValue);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (commandHistory.length > 0) {
+        const newIndex = historyIndex === -1 ? commandHistory.length - 1 : Math.max(0, historyIndex - 1);
+        setHistoryIndex(newIndex);
+        setInputValue(commandHistory[newIndex]);
+      }
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (historyIndex !== -1) {
+        const newIndex = historyIndex + 1;
+        if (newIndex >= commandHistory.length) {
+          setHistoryIndex(-1);
+          setInputValue("");
+        } else {
+          setHistoryIndex(newIndex);
+          setInputValue(commandHistory[newIndex]);
+        }
+      }
+    }
+  };
+
+  const initialLines = [
     "$ whoami",
     "> Aswin Andro",
     "",
@@ -85,8 +296,9 @@ const TerminalHeader = () => {
     <div
       className="terminal-header card-border rounded-xl overflow-hidden"
       style={{ fontFamily: "'JetBrains Mono', monospace" }}
+      onClick={() => inputRef.current?.focus()}
     >
-      {/* Terminal chrome */}
+      {/* Chrome */}
       <div
         className="flex items-center gap-2 px-4 py-3"
         style={{
@@ -99,18 +311,18 @@ const TerminalHeader = () => {
           <div className="w-3 h-3 rounded-full" style={{ background: "#f59e0b" }} />
           <div className="w-3 h-3 rounded-full" style={{ background: "#22c55e" }} />
         </div>
-        <span
-          className="ml-3 text-xs"
-          style={{ color: "#475569", letterSpacing: "0.05em" }}
-        >
+        <span className="ml-3 text-xs" style={{ color: "#475569", letterSpacing: "0.05em" }}>
           aswin@portfolio ~ %
+        </span>
+        <span className="ml-auto text-xs" style={{ color: "#334155" }}>
+          [interactive]
         </span>
       </div>
 
-      {/* Terminal body */}
-      <div className="p-5 md:p-6 min-h-[160px]">
-        {terminalLines.slice(0, lineCount).map((line, i) => (
-          <div key={i} className="flex items-center gap-2 mb-1">
+      {/* Body */}
+      <div ref={terminalRef} className="p-4 md:p-5 min-h-[180px] max-h-[260px] overflow-y-auto">
+        {initialLines.slice(0, lineCount).map((line, i) => (
+          <div key={`init-${i}`} className="flex items-center gap-2 mb-1">
             {line.startsWith("$") ? (
               <span style={{ color: "#22c55e" }}>{line}</span>
             ) : line.startsWith(">") ? (
@@ -120,167 +332,241 @@ const TerminalHeader = () => {
             )}
           </div>
         ))}
-        {lineCount >= terminalLines.length && (
-          <span
-            className="inline-block w-2 h-4 ml-1"
-            style={{
-              background: "#22c55e",
-              animation: "blink 1s step-end infinite",
-            }}
-          />
+
+        {history.map((entry, i) => (
+          <div key={`hist-${i}`} className="mb-1 whitespace-pre-wrap">
+            <span style={{ color: entry.type === "input" ? "#22c55e" : "#94a3b8" }}>
+              {entry.text}
+            </span>
+          </div>
+        ))}
+
+        {lineCount >= initialLines.length && (
+          <div className="flex items-center gap-2 mt-1">
+            <span style={{ color: "#22c55e" }}>$</span>
+            <input
+              ref={inputRef}
+              type="text"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className="flex-1 bg-transparent outline-none border-none"
+              style={{
+                color: "#f8fafc",
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: "0.85rem",
+                caretColor: "#22c55e",
+              }}
+              placeholder='type "help" for commands...'
+              spellCheck={false}
+              autoComplete="off"
+            />
+          </div>
         )}
       </div>
     </div>
   );
 };
 
-const SkillBar = ({ name, level, delay = 0 }) => {
-  const [width, setWidth] = useState(0);
+const SkillCard = ({ category, icon, skills, color, isExpanded, onToggle, isActive }) => {
+  const cardRef = useRef(null);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setWidth(level), delay);
-    return () => clearTimeout(timer);
-  }, [level, delay]);
-
-  return (
-    <div className="flex items-center gap-3">
-      <span
-        className="text-xs w-24 text-right flex-none"
-        style={{
-          color: "#94a3b8",
-          fontFamily: "'JetBrains Mono', monospace",
-          fontSize: "0.7rem",
-        }}
-      >
-        {name}
-      </span>
-      <div
-        className="flex-1 h-1.5 rounded-full overflow-hidden"
-        style={{ background: "rgba(255, 255, 255, 0.05)" }}
-      >
-        <div
-          className="h-full rounded-full transition-all duration-1000 ease-out"
-          style={{
-            width: `${width}%`,
-            background: "linear-gradient(90deg, #22c55e, #3b82f6)",
-            transitionDelay: `${delay}ms`,
-          }}
-        />
-      </div>
-      <span
-        className="text-xs w-8 flex-none"
-        style={{
-          color: "#22c55e",
-          fontFamily: "'JetBrains Mono', monospace",
-          fontSize: "0.65rem",
-        }}
-      >
-        {level}%
-      </span>
-    </div>
-  );
-};
-
-const BentoCard = ({ category, icon, skills, span = "normal" }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  const spanClasses = {
-    wide: "col-span-1 md:col-span-2",
-    tall: "row-span-1 md:row-span-2",
-    large: "col-span-1 md:col-span-2 row-span-1 md:row-span-2",
-    normal: "col-span-1",
+  const handleMouseMove = (e) => {
+    const card = cardRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    card.style.setProperty("--mouse-x", `${x}%`);
+    card.style.setProperty("--mouse-y", `${y}%`);
   };
 
   return (
     <div
-      className={`skill-bento-card ${spanClasses[span]} card-border rounded-xl p-5 md:p-6 flex flex-col relative overflow-hidden group`}
+      ref={cardRef}
+      className={`skill-bento-card card-border rounded-xl flex flex-col relative overflow-hidden group transition-all duration-500 ${
+        isExpanded ? "col-span-1 md:col-span-2 row-span-2" : "col-span-1"
+      } ${isActive ? "ring-1" : ""}`}
       style={{
         transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
-        transform: isHovered ? "translateY(-2px)" : "translateY(0)",
+        padding: isExpanded ? "24px" : "20px",
+        ringColor: isActive ? `${color}44` : "transparent",
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseMove={handleMouseMove}
+      onClick={onToggle}
     >
-      {/* Gradient accent */}
+      {/* Gradient accent top */}
       <div
         className="absolute top-0 left-0 right-0 h-[2px] transition-opacity duration-500"
-        style={{
-          background: "linear-gradient(90deg, #22c55e, #3b82f6)",
-          opacity: isHovered ? 1 : 0,
-        }}
+        style={{ background: `linear-gradient(90deg, ${color}, ${color}66)`, opacity: 1 }}
       />
 
-      {/* Glow effect on hover */}
+      {/* Glow on hover */}
       <div
-        className="absolute inset-0 transition-opacity duration-500 pointer-events-none"
+        className="absolute inset-0 transition-opacity duration-500 pointer-events-none rounded-xl"
         style={{
-          background:
-            "radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(34, 197, 94, 0.06), transparent 40%)",
-          opacity: isHovered ? 1 : 0,
+          background: `radial-gradient(300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), ${color}0a, transparent 40%)`,
         }}
       />
 
-      <div className="flex items-center gap-3 mb-4">
-        <div
-          className="w-9 h-9 flex items-center justify-center rounded-lg flex-none"
-          style={{
-            background: "rgba(34, 197, 94, 0.08)",
-            border: "1px solid rgba(34, 197, 94, 0.12)",
-          }}
-        >
-          <img src={icon} alt={category} className="w-4 h-4" />
+      {/* Header */}
+      <div className="flex items-center justify-between mb-4 relative z-10">
+        <div className="flex items-center gap-3">
+          <div
+            className="w-9 h-9 flex items-center justify-center rounded-lg flex-none"
+            style={{ background: `${color}12`, border: `1px solid ${color}20` }}
+          >
+            <img src={icon} alt={category} className="w-4 h-4" />
+          </div>
+          <div>
+            <h3 className="font-semibold" style={{ letterSpacing: "-0.01em", fontSize: "0.95rem" }}>
+              {category}
+            </h3>
+            <span
+              className="text-xs"
+              style={{ color: "#475569", fontFamily: "'JetBrains Mono', monospace", fontSize: "0.65rem" }}
+            >
+              {skills.length} skills
+            </span>
+          </div>
         </div>
-        <h3
-          className="font-semibold"
-          style={{
-            letterSpacing: "-0.01em",
-            fontSize: span === "large" ? "1.1rem" : "0.95rem",
-          }}
-        >
-          {category}
-        </h3>
+
+        <div className="flex items-center gap-2">
+          {/* Proficiency arc */}
+          <ProficiencyArc percent={proficiencyMap[category] || 80} color={color} size={44} />
+          {/* Expand indicator */}
+          <div
+            className="w-6 h-6 flex items-center justify-center rounded-md transition-all duration-300"
+            style={{
+              background: isExpanded ? `${color}15` : "rgba(255,255,255,0.03)",
+              transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
+            }}
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2">
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </div>
+        </div>
       </div>
 
-      {span === "large" ? (
-        <div className="flex-1 flex flex-col gap-3">
-          {skills.map((skill, i) => (
-            <SkillBar key={skill} name={skill} level={85 + Math.random() * 15 | 0} delay={i * 100} />
-          ))}
-        </div>
-      ) : (
-        <div className="flex flex-wrap gap-1.5 flex-1">
-          {skills.map((skill) => (
-            <span
-              key={skill}
-              className="text-xs px-2.5 py-1 rounded-md transition-all duration-300"
-              style={{
-                background: isHovered
-                  ? "rgba(34, 197, 94, 0.12)"
-                  : "rgba(30, 41, 59, 0.5)",
-                border: `1px solid ${
-                  isHovered
-                    ? "rgba(34, 197, 94, 0.25)"
-                    : "rgba(255, 255, 255, 0.04)"
-                }`,
-                color: isHovered ? "#22c55e" : "#94a3b8",
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: "0.7rem",
-              }}
-            >
-              {skill}
-            </span>
-          ))}
-        </div>
-      )}
+      {/* Skills */}
+      <div className={`relative z-10 ${isExpanded ? "flex-1" : ""}`}>
+        {isExpanded ? (
+          <div className="flex flex-col gap-2.5 mt-2">
+            {skills.map((skill, i) => (
+              <SkillBar
+                key={skill}
+                name={skill}
+                level={75 + Math.floor(Math.random() * 20)}
+                delay={i * 80}
+                color={color}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-wrap gap-1.5">
+            {skills.map((skill) => (
+              <span
+                key={skill}
+                className="text-xs px-2 py-1 rounded-md transition-all duration-300"
+                style={{
+                  background: `${color}08`,
+                  border: `1px solid ${color}15`,
+                  color: "#94a3b8",
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: "0.65rem",
+                }}
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
 
+const FilterTabs = ({ active, onChange }) => (
+  <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
+    {categories.map((cat) => {
+      const isActive = active === cat;
+      const color = cat === "All" ? "#22c55e" : categoryColors[cat] || "#22c55e";
+      return (
+        <button
+          key={cat}
+          onClick={() => onChange(cat)}
+          className="flex-none px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 whitespace-nowrap"
+          style={{
+            background: isActive ? `${color}18` : "rgba(30, 41, 59, 0.4)",
+            border: `1px solid ${isActive ? `${color}40` : "rgba(255,255,255,0.04)"}`,
+            color: isActive ? color : "#64748b",
+            fontFamily: "'JetBrains Mono', monospace",
+            fontSize: "0.7rem",
+            letterSpacing: "0.02em",
+          }}
+        >
+          {cat}
+        </button>
+      );
+    })}
+  </div>
+);
+
+const StatsBar = () => {
+  const stats = [
+    { label: "Total Skills", value: skillsData.reduce((a, d) => a + d.skills.length, 0), suffix: "+" },
+    { label: "Categories", value: skillsData.length, suffix: "" },
+    { label: "Years Exp", value: 5, suffix: "+" },
+    { label: "Projects", value: 25, suffix: "+" },
+  ];
+
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      {stats.map((stat, i) => (
+        <div
+          key={stat.label}
+          className="card-border rounded-lg p-3 text-center"
+          style={{ animationDelay: `${i * 100}ms` }}
+        >
+          <div
+            className="font-bold"
+            style={{
+              background: "linear-gradient(135deg, #22c55e, #3b82f6)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              fontSize: "1.4rem",
+            }}
+          >
+            {stat.value}{stat.suffix}
+          </div>
+          <div
+            style={{
+              color: "#475569",
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: "0.6rem",
+              letterSpacing: "0.05em",
+            }}
+          >
+            {stat.label}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+/* ─────────── MAIN COMPONENT ─────────── */
+
 const TechStack = () => {
   const { loading, showContent } = useSkeletonLoader(750);
   const containerRef = useRef(null);
+  const [activeFilter, setActiveFilter] = useState("All");
+  const [expandedCard, setExpandedCard] = useState(null);
+  const [focusedIndex, setFocusedIndex] = useState(-1);
 
-  const radarSkills = [
+  const radarSkills = useMemo(() => [
     { name: "Java", level: 95 },
     { name: "React", level: 90 },
     { name: "Node.js", level: 88 },
@@ -289,57 +575,65 @@ const TechStack = () => {
     { name: "APIs", level: 92 },
     { name: "DB", level: 87 },
     { name: "Python", level: 80 },
-  ];
+  ], []);
+
+  const filteredSkills = useMemo(() => {
+    if (activeFilter === "All") return skillsData;
+    return skillsData.filter((d) => d.category === activeFilter);
+  }, [activeFilter]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        setFocusedIndex((prev) => Math.min(prev + 1, filteredSkills.length - 1));
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        setFocusedIndex((prev) => Math.max(prev - 1, 0));
+      } else if (e.key === "Enter" && focusedIndex >= 0) {
+        const cat = filteredSkills[focusedIndex]?.category;
+        setExpandedCard((prev) => (prev === cat ? null : cat));
+      } else if (e.key === "Escape") {
+        setExpandedCard(null);
+        setFocusedIndex(-1);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [filteredSkills, focusedIndex]);
+
+  // Reset expansion when filter changes
+  useEffect(() => {
+    setExpandedCard(null);
+    setFocusedIndex(-1);
+  }, [activeFilter]);
 
   useGSAP(() => {
     if (!showContent) return;
 
     gsap.fromTo(
-      ".bento-card",
-      { y: 40, opacity: 0, filter: "blur(8px)" },
-      {
-        y: 0,
-        opacity: 1,
-        filter: "blur(0px)",
-        duration: 0.8,
-        ease: "power3.out",
-        stagger: 0.08,
-        scrollTrigger: {
-          trigger: "#skills",
-          start: "top 75%",
-        },
-      }
-    );
-
-    gsap.fromTo(
       ".terminal-header",
       { y: 30, opacity: 0, filter: "blur(5px)" },
-      {
-        y: 0,
-        opacity: 1,
-        filter: "blur(0px)",
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: "#skills",
-          start: "top 80%",
-        },
-      }
+      { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.8, ease: "power2.out",
+        scrollTrigger: { trigger: "#skills", start: "top 80%" } }
     );
 
     gsap.fromTo(
       ".radar-section",
       { scale: 0.9, opacity: 0 },
-      {
-        scale: 1,
-        opacity: 1,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ".radar-section",
-          start: "top 80%",
-        },
-      }
+      { scale: 1, opacity: 1, duration: 1, ease: "power2.out",
+        scrollTrigger: { trigger: ".radar-section", start: "top 80%" } }
+    );
+
+    gsap.fromTo(
+      ".stats-bar",
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, ease: "power2.out",
+        scrollTrigger: { trigger: ".stats-bar", start: "top 85%" } }
     );
   }, [showContent]);
 
@@ -358,128 +652,108 @@ const TechStack = () => {
       <div className="w-full md:px-10 px-5">
         <TitleHeader title="Technical Arsenal" sub="SKILLS & EXPERTISE" />
 
-        {/* Terminal + Radar Row */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-16">
-          <TerminalHeader />
+        {/* Stats Bar */}
+        <div className="stats-bar mt-12">
+          <StatsBar />
+        </div>
 
-          {/* Radar Chart */}
+        {/* Terminal + Radar */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-8">
+          <InteractiveTerminal />
           <div className="radar-section card-border rounded-xl p-5 md:p-6 flex flex-col items-center justify-center">
             <div
-              className="text-xs mb-4 self-start"
-              style={{
-                color: "#475569",
-                fontFamily: "'JetBrains Mono', monospace",
-                letterSpacing: "0.05em",
-              }}
+              className="text-xs mb-3 self-start"
+              style={{ color: "#475569", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.05em" }}
             >
               // skill-proficiency-radar
             </div>
-            <TechRadar skills={radarSkills} size={280} />
+            <TechRadar skills={radarSkills} size={260} />
           </div>
         </div>
 
-        {/* Bento Grid */}
-        <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6"
-          style={{ gridAutoRows: "minmax(180px, auto)" }}
-        >
-          {/* Languages - Wide */}
-          <BentoCard
-            category={skillsData[0].category}
-            icon={skillsData[0].icon}
-            skills={skillsData[0].skills}
-            span="wide"
-          />
-
-          {/* Cloud & DevOps - Tall */}
-          <BentoCard
-            category={skillsData[4].category}
-            icon={skillsData[4].icon}
-            skills={skillsData[4].skills}
-            span="tall"
-          />
-
-          {/* Frameworks */}
-          <BentoCard
-            category={skillsData[1].category}
-            icon={skillsData[1].icon}
-            skills={skillsData[1].skills}
-          />
-
-          {/* Frontend */}
-          <BentoCard
-            category={skillsData[2].category}
-            icon={skillsData[2].icon}
-            skills={skillsData[2].skills}
-          />
-
-          {/* Architecture - Wide */}
-          <BentoCard
-            category={skillsData[5].category}
-            icon={skillsData[5].icon}
-            skills={skillsData[5].skills}
-            span="wide"
-          />
-
-          {/* Databases */}
-          <BentoCard
-            category={skillsData[3].category}
-            icon={skillsData[3].icon}
-            skills={skillsData[3].skills}
-          />
-
-          {/* Payments & Security */}
-          <BentoCard
-            category={skillsData[8].category}
-            icon={skillsData[8].icon}
-            skills={skillsData[8].skills}
-          />
-
-          {/* Testing */}
-          <BentoCard
-            category={skillsData[7].category}
-            icon={skillsData[7].icon}
-            skills={skillsData[7].skills}
-          />
-
-          {/* Observability */}
-          <BentoCard
-            category={skillsData[6].category}
-            icon={skillsData[6].icon}
-            skills={skillsData[6].skills}
-          />
+        {/* Filter Tabs */}
+        <div className="mt-8">
+          <FilterTabs active={activeFilter} onChange={setActiveFilter} />
         </div>
 
-        {/* Tech logos marquee */}
-        <div className="mt-12 relative">
+        {/* Keyboard hint */}
+        <div
+          className="mt-3 flex items-center gap-4 text-xs"
+          style={{ color: "#334155", fontFamily: "'JetBrains Mono', monospace", fontSize: "0.6rem" }}
+        >
+          <span>
+            <kbd className="px-1.5 py-0.5 rounded" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+              &larr; &rarr;
+            </kbd>{" "}
+            navigate
+          </span>
+          <span>
+            <kbd className="px-1.5 py-0.5 rounded" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+              Enter
+            </kbd>{" "}
+            expand
+          </span>
+          <span>
+            <kbd className="px-1.5 py-0.5 rounded" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+              Esc
+            </kbd>{" "}
+            collapse
+          </span>
+        </div>
+
+        {/* Skill Cards Grid */}
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5"
+          style={{ gridAutoRows: "minmax(160px, auto)" }}
+        >
+          {filteredSkills.map((skill, i) => (
+            <SkillCard
+              key={skill.category}
+              category={skill.category}
+              icon={skill.icon}
+              skills={skill.skills}
+              color={categoryColors[skill.category] || "#22c55e"}
+              isExpanded={expandedCard === skill.category}
+              onToggle={() =>
+                setExpandedCard((prev) =>
+                  prev === skill.category ? null : skill.category
+                )
+              }
+              isActive={focusedIndex === i}
+            />
+          ))}
+        </div>
+
+        {/* Tech logos */}
+        <div className="mt-10 relative">
           <div
-            className="text-xs text-center mb-4"
-            style={{
-              color: "#475569",
-              fontFamily: "'JetBrains Mono', monospace",
-              letterSpacing: "0.05em",
-            }}
+            className="text-xs text-center mb-3"
+            style={{ color: "#334155", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.05em" }}
           >
             // technologies-i-work-with
           </div>
-          <div className="flex items-center justify-center gap-6 md:gap-10 flex-wrap opacity-40">
+          <div className="flex items-center justify-center gap-4 md:gap-6 flex-wrap">
             {techStackImgs.map((tech, i) => (
               <div
                 key={i}
-                className="flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-300 hover:opacity-100"
+                className="flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 cursor-default"
                 style={{
                   background: "rgba(30, 41, 59, 0.3)",
                   border: "1px solid rgba(255, 255, 255, 0.04)",
                 }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(34, 197, 94, 0.08)";
+                  e.currentTarget.style.borderColor = "rgba(34, 197, 94, 0.2)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(30, 41, 59, 0.3)";
+                  e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.04)";
+                }}
               >
-                <img src={tech.imgPath} alt={tech.name} className="w-5 h-5" />
+                <img src={tech.imgPath} alt={tech.name} className="w-4 h-4 opacity-60" />
                 <span
-                  className="text-xs"
-                  style={{
-                    color: "#94a3b8",
-                    fontFamily: "'JetBrains Mono', monospace",
-                    fontSize: "0.7rem",
-                  }}
+                  className="text-xs opacity-50"
+                  style={{ color: "#94a3b8", fontFamily: "'JetBrains Mono', monospace", fontSize: "0.65rem" }}
                 >
                   {tech.name}
                 </span>
@@ -489,12 +763,13 @@ const TechStack = () => {
         </div>
       </div>
 
-      {/* Blink animation for cursor */}
       <style>{`
         @keyframes blink {
           0%, 100% { opacity: 1; }
           50% { opacity: 0; }
         }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
     </div>
   );
