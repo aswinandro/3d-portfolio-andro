@@ -147,11 +147,11 @@ const Hero = () => {
       </section>
 
       {/* Bottom Counter + Button */}
-      <div className="hero-counter-section z-20 w-full flex flex-col items-center gap-4 py-6 md:py-4 px-5 md:px-10">
+      <div className="hero-counter-section z-20 w-full flex flex-col items-center gap-6 py-8 px-5 md:px-10">
         <AnimatedCounter />
         <Button
-          text="Explore Services"
-          className="md:w-80 md:h-8 w-60 h-8"
+          text="Explore"
+          className="md:w-64 w-52 h-8"
           id="counter"
           onClick={handleScrollToServices}
         />

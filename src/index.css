@@ -370,7 +370,7 @@ section {
   }
 
   .cta-button {
-    @apply px-4 py-4 rounded-lg flex justify-center items-center relative cursor-pointer overflow-hidden;
+    @apply px-5 py-4 rounded-lg flex justify-center items-center relative cursor-pointer overflow-hidden;
     background: rgba(34, 197, 94, 0.1);
     border: 1px solid rgba(34, 197, 94, 0.2);
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -378,8 +378,8 @@ section {
     .bg-circle {
       @apply absolute -right-10 origin-center top-1/2 -translate-y-1/2
         rounded-full transition-all duration-500;
-      width: 120%;
-      height: 120%;
+      width: 100%;
+      height: 100%;
       background: var(--gradient-accent);
       opacity: 0;
       transform: translateY(-50%) scale(0);
@@ -390,15 +390,16 @@ section {
       color: #22c55e;
       font-weight: 600;
       letter-spacing: 0.05em;
+      padding-right: 40px;
     }
 
     .arrow-wrapper {
-      @apply size-10 rounded-full absolute right-4 top-1/2
-        -translate-y-1/2 flex justify-center items-center overflow-hidden;
+      @apply size-10 rounded-full absolute right-3 top-1/2
+        -translate-y-1/2 flex justify-center items-center overflow-hidden flex-none;
       background: rgba(34, 197, 94, 0.15);
 
       img {
-        @apply size-5 xl:-translate-y-32 translate-y-0 transition-all duration-500;
+        @apply size-4 transition-all duration-500;
         filter: brightness(0) saturate(100%) invert(42%) sepai(93%) saturate(1352%) hue-rotate(83deg) brightness(117%) contrast(119%);
       }
     }
@@ -420,7 +421,6 @@ section {
       .arrow-wrapper {
         background: rgba(255, 255, 255, 0.9);
         img {
-          transform: translateY(0);
           filter: brightness(0) saturate(100%);
         }
       }
