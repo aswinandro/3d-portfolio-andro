@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/NavBar";
 import Footer from "./sections/Footer";
 import ErrorBoundary from "./components/ErrorBoundary";
+import CustomCursor from "./components/CustomCursor";
+import ScrollProgress from "./components/ScrollProgress";
 
 const HomePage = React.lazy(() => import('./Home'));
 const AboutPage = React.lazy(() => import('./About'));
@@ -29,7 +31,6 @@ const SuspensePageFallback = () => {
 
 const App = () => {
   useEffect(() => {
-    // Remove preloader after page loads
     const preloader = document.getElementById("preloader");
     if (preloader) {
       const timer = setTimeout(() => {
@@ -45,6 +46,8 @@ const App = () => {
 
   return (
     <ErrorBoundary>
+      <CustomCursor />
+      <ScrollProgress />
       <Navbar />
       <main>
         <Suspense fallback={<SuspensePageFallback />}>
