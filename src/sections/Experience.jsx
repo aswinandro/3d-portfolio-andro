@@ -4,41 +4,23 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { expCards } from "../constants";
 import TitleHeader from "../components/TitleHeader";
-import useMouseGlow from "../hooks/useMouseGlow";
-import useScrollReveal from "../hooks/useScrollReveal";
-
 import { ExperienceSkeleton, useSkeletonLoader } from "../components/Skeleton";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ExpCard = ({ card, index }) => {
-  const cardRef = useMouseGlow();
-  const ref = useScrollReveal("slideRight", { y: 0, x: -40, delay: index * 0.1 });
-
+const ExpCard = ({ card }) => {
   return (
-    <div
-      ref={(el) => {
-        ref && (el && ref.current && (ref.current = el));
-        cardRef && handleMouseMove && (el && el.addEventListener('mousemove', handleMouseMove));
-        cardRef && handleMouseMove && (el && el.addEventListener('mouseleave', handleMouseLeave));
-      }}
-      className="exp-card-wrapper group"
-    >
+    <div className="exp-card-wrapper group">
       <div className="xl:w-2/6">
-        <div className="card-border rounded-xl relative z-10 h-full transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-xl">
-          <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-transparent via-"
-            style={{ 
-              from: "#a855f7", 
-              to: "#6366f1", 
-              start: "0%", 
-              end: "100%"
-            }}
+        <div className="card-border rounded-xl relative z-10 h-full overflow-hidden">
+          <div
+            className="absolute top-0 right-0 w-1 h-full"
+            style={{ background: "linear-gradient(180deg, #a855f7, transparent)" }}
           />
           <div className="p-6">
             <div className="relative">
               <div
-                className="absolute -inset-0.5 bg-gradient-to-r from-[]
-                rounded-xl blur opacity-20 group-hover:opacity-50 transition-opacity duration-500"
+                className="absolute -inset-0.5 rounded-xl blur opacity-20 group-hover:opacity-50 transition-opacity duration-500"
                 style={{ background: "linear-gradient(135deg, #a855f7, #6366f1)" }}
               />
               <div className="relative card-border rounded-xl bg-[#0a0a0f] p-5">
@@ -56,9 +38,8 @@ const ExpCard = ({ card, index }) => {
       <div className="xl:w-4/6">
         <div className="flex items-start">
           <div className="relative ml-0 xl:ml-12">
-            <div className="w-1 h-12 bg-gradient-to-b from-[]
-              via-[]
-              to-transparent"
+            <div
+              className="w-1 h-12"
               style={{ background: "linear-gradient(180deg, #a855f7, transparent)" }}
             />
             <div
@@ -67,26 +48,22 @@ const ExpCard = ({ card, index }) => {
             />
           </div>
 
-          <div className="expText relative z-20 flex xl:gap-20 md:gap-10 gap-6 flex-1" ref={cardRef.glowStyle ? ref : null}>
-            <div className="timeline-logo w-16 h-16 flex-shrink-0 rounded-full overflow-hidden bg-[#111] border border-[]
-              border-[]
-              border-[]
-              border-[]" style={{ borderColor: "rgba(168, 85, 247, 0.3)" }}
+          <div className="expText relative z-20 flex xl:gap-20 md:gap-10 gap-6 flex-1">
+            <div
+              className="timeline-logo w-16 h-16 flex-shrink-0 rounded-full overflow-hidden bg-[#111]"
+              style={{ border: "1px solid rgba(168, 85, 247, 0.3)" }}
             >
               <img src={card.logoPath} alt="logo" className="w-full h-full object-cover" />
             </div>
             <div className="flex-1">
               <h1
                 className="font-semibold text-2xl xl:text-3xl mb-3"
-                style={{
-                  letterSpacing: "-0.02em",
-                  color: "#f8fafc",
-                }}
+                style={{ letterSpacing: "-0.02em", color: "#f8fafc" }}
               >
                 {card.title}
               </h1>
               <p
-                className="my-3 font-mono text-sm"
+                className="my-3"
                 style={{
                   color: "#94a3b8",
                   fontFamily: "'JetBrains Mono', monospace",
@@ -97,9 +74,10 @@ const ExpCard = ({ card, index }) => {
                 {card.date}
               </p>
               <p
-                className="italic text-sm mb-4"
+                className="italic text-sm mb-4 flex items-center gap-2"
                 style={{ color: "#a855f7" }}
               >
+                <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#a855f7" }} />
                 Responsibilities
               </p>
               <ul className="list-none space-y-3">
@@ -152,9 +130,7 @@ const Experience = () => {
         start: "top center",
         end: "70% center",
         onUpdate: (self) => {
-          gsap.to(".timeline", {
-            scaleY: 1 - self.progress,
-          });
+          gsap.to(".timeline", { scaleY: 1 - self.progress });
         },
       },
     });
@@ -162,13 +138,9 @@ const Experience = () => {
     gsap.utils.toArray(".expText").forEach((text) => {
       gsap.from(text, {
         opacity: 0,
-        xPercent: 0,
         duration: 1,
         ease: "power2.inOut",
-        scrollTrigger: {
-          trigger: text,
-          start: "top 60%",
-        },
+        scrollTrigger: { trigger: text, start: "top 60%" },
       });
     });
   }, [showContent]);
@@ -185,14 +157,11 @@ const Experience = () => {
       } flex-center md:mt-40 mt-20 section-padding xl:px-0`}
     >
       <div className="w-full h-full md:px-20 px-5">
-        <TitleHeader
-          title="Professional Work Experience"
-          sub="CAREER OVERVIEW"
-        />
+        <TitleHeader title="Professional Work Experience" sub="CAREER OVERVIEW" />
         <div className="mt-32 relative">
           <div className="relative z-50 xl:space-y-32 space-y-10">
-            {expCards.map((card, index) => (
-              <ExpCard key={card.title} card={card} index={index} />
+            {expCards.map((card) => (
+              <ExpCard key={card.title} card={card} />
             ))}
           </div>
         </div>

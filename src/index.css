@@ -835,6 +835,35 @@ section {
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 0 0 80px rgba(168, 85, 247, 0.05);
 }
 
+/* Profile card animations */
+@keyframes profileCardFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+@keyframes profileCardGlow {
+  0% { opacity: 0.1; transform: scale(1); }
+  100% { opacity: 0.4; transform: scale(1.02); }
+}
+
+/* Form input focus */
+.form-input-field {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.form-input-field:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.15);
+}
+
+/* Tech pill hover */
+.tech-pill {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.tech-pill:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,

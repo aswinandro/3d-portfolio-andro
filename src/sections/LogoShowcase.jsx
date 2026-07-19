@@ -10,7 +10,7 @@ const LogoIcon = ({ icon }) => (
 
 const LogoShowcase = () => {
   const { loading, showContent } = useSkeletonLoader(600);
-  const ref = useScrollReveal("fadeUp", { y: 20 });
+  const ref = useScrollReveal({ y: 20 });
 
   if (loading) {
     return <LogoShowcaseSkeleton />;

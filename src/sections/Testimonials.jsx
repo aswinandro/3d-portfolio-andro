@@ -8,7 +8,7 @@ import { ServicesSkeleton, useSkeletonLoader } from "../components/Skeleton";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ServiceCard = ({ service, index }) => {
+const ServiceCard = ({ service }) => {
   return (
     <div
       className="service-card card-border rounded-xl p-6 flex flex-col gap-4 group relative overflow-hidden transition-all duration-500"

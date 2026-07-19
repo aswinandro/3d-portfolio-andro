@@ -4,7 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const useScrollReveal = (animation = "fadeUp", options = {}) => {
+const useScrollReveal = (options = {}) => {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -40,6 +40,7 @@ const useScrollReveal = (animation = "fadeUp", options = {}) => {
     });
 
     return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return ref;
