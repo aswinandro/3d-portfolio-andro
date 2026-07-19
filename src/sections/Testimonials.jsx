@@ -38,16 +38,16 @@ const ServiceCard = ({ service }) => {
           <img src={service.icon} alt={service.title} className="w-5 h-5" />
         </div>
         <h3
-          className="text-lg font-semibold"
-          style={{ letterSpacing: "-0.01em" }}
+          className="text-xl font-semibold"
+          style={{ letterSpacing: "-0.02em" }}
         >
           {service.title}
         </h3>
       </div>
 
-      {service.desc && (
-        <p className="text-sm leading-relaxed" style={{ color: "#64748b" }}>
-          {service.desc}
+      {service.review && (
+        <p className="text-sm leading-relaxed" style={{ color: "#94a3b8" }}>
+          {service.review}
         </p>
       )}
     </div>

@@ -33,7 +33,7 @@ const words = [
 ];
 
 const counterItems = [
-  { value: 5, suffix: "+", label: "Years of Experience" },
+  { value: 6, suffix: "+", label: "Years of Experience" },
   { value: 15, suffix: "+", label: "Satisfied Clients" },
   { value: 25, suffix: "+", label: "Completed Projects" },
   { value: 90, suffix: "%", label: "Client Retention Rate" },
@@ -442,6 +442,94 @@ const skillsData = [
   },
 ];
 
+const projects = [
+  {
+    title: "Empay",
+    subtitle: "Digital Payment & Commerce Platform",
+    description:
+      "Fullstack developer building microservices architecture with Java Spring Boot for The Emirates Credit Information Company. Led CI/CD pipelines via Azure DevOps, deployed scalable backend services and React Native mobile app features.",
+    tech: ["Java", "Spring Boot", "Microservices", "React Native", "Azure DevOps", "Docker"],
+    url: "https://www.empay.ae/",
+    playStore: "https://play.google.com/store/apps/details?id=com.empay.android",
+    category: "Enterprise",
+    color: "#a855f7",
+    icon: "/images/svgs/cloud-deploy.svg",
+    image: "/images/project-empay.png",
+  },
+  {
+    title: "ROHiM",
+    subtitle: "Rays of Hope International Ministries",
+    description:
+      "Built the official mobile app and website for ROHiM ministry — integrating YouTube API v3 for live sermon streaming and Google Calendar API for event scheduling. Cross-platform React Native app with real-time notifications.",
+    tech: ["React Native", "YouTube API v3", "Calendar API", "Node.js", "Firebase"],
+    url: "https://robertronald.com/",
+    playStore: "https://play.google.com/store/apps/details?id=com.andro5.rohimraysofhopeinternationalministriesapp",
+    category: "Mobile App",
+    color: "#6366f1",
+    icon: "/images/svgs/layers-animated.svg",
+    image: "/images/project-rohim.png",
+  },
+  {
+    title: "Hope International Ministries",
+    subtitle: "Church Website & Community Platform",
+    description:
+      "Designed and developed the church website for Hope International Ministries — event management, sermon archives, and community engagement features with a clean, accessible design.",
+    tech: ["React", "Node.js", "Responsive Design", "CMS"],
+    url: "https://www.hope-im.org/",
+    category: "Web App",
+    color: "#22c55e",
+    icon: "/images/svgs/shield-check.svg",
+    image: "/images/project-hopeim.png",
+  },
+  {
+    title: "Eveara",
+    subtitle: "Music Distribution Platform",
+    description:
+      "Full stack development for Eveara's white-label music distribution platform. Built responsive web interfaces with React, backend APIs with Node.js & FastAPI, and MSSQL database layer for artists, labels, and partners.",
+    tech: ["React", "React Native", "Node.js", "FastAPI", "MSSQL", "Expo"],
+    url: "https://eveara.com/",
+    category: "Platform",
+    color: "#ec4899",
+    icon: "/images/svgs/code-animated.svg",
+    image: "/images/project1.png",
+  },
+  {
+    title: "Berlin Packaging",
+    subtitle: "International E-Commerce Portal",
+    description:
+      "Contributed to the international web platform for Berlin Packaging Europe — building performant frontend components and integrating backend services for a global packaging supplier.",
+    tech: ["React", "TypeScript", "REST APIs", "CMS Integration"],
+    url: "https://berlinpackaging.eu/en-international",
+    category: "E-Commerce",
+    color: "#f59e0b",
+    icon: "/images/svgs/server-api.svg",
+    image: "/images/project-berlin.png",
+  },
+  {
+    title: "Lighthouse Revival Church",
+    subtitle: "Church Website & Community Platform",
+    description:
+      "Designed and developed the church website with event management, sermon archives, and community engagement features. Clean, accessible design optimized for all devices.",
+    tech: ["React", "Node.js", "Responsive Design", "CMS"],
+    url: "https://lighthouserevivalchurch.com/",
+    category: "Web App",
+    color: "#22c55e",
+    icon: "/images/svgs/shield-check.svg",
+    image: "/images/project-lighthouse.png",
+  },
+  {
+    title: "HolyLand TV",
+    subtitle: "Live Streaming Platform",
+    description:
+      "FullStack development for HolyLand TV — real-time live streaming infrastructure with adaptive bitrate, chat integration, and multi-device playback support.",
+    tech: ["Node.js", "WebSockets", "FFmpeg", "React", "AWS"],
+    category: "Streaming",
+    color: "#ef4444",
+    icon: "/images/svgs/cloud-deploy.svg",
+    image: "/images/project4.png",
+  },
+];
+
 export {
   words,
   abilities,
@@ -456,4 +544,5 @@ export {
   techStackImgs,
   navLinks,
   skillsData,
+  projects,
 };
