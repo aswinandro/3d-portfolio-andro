@@ -460,14 +460,26 @@ const projects = [
     title: "ROHiM",
     subtitle: "Rays of Hope International Ministries",
     description:
-      "Built the official mobile app for ROHiM ministry — integrating YouTube API v3 for live sermon streaming and Google Calendar API for event scheduling. Cross-platform React Native app with real-time notifications.",
+      "Built the official mobile app and website for ROHiM ministry — integrating YouTube API v3 for live sermon streaming and Google Calendar API for event scheduling. Cross-platform React Native app with real-time notifications.",
     tech: ["React Native", "YouTube API v3", "Calendar API", "Node.js", "Firebase"],
-    url: "https://www.hope-im.org/",
+    url: "https://robertronald.com/",
     playStore: "https://play.google.com/store/apps/details?id=com.andro5.rohimraysofhopeinternationalministriesapp",
     category: "Mobile App",
     color: "#6366f1",
     icon: "/images/svgs/layers-animated.svg",
     image: "/images/project-rohim.png",
+  },
+  {
+    title: "Hope International Ministries",
+    subtitle: "Church Website & Community Platform",
+    description:
+      "Designed and developed the church website for Hope International Ministries — event management, sermon archives, and community engagement features with a clean, accessible design.",
+    tech: ["React", "Node.js", "Responsive Design", "CMS"],
+    url: "https://www.hope-im.org/",
+    category: "Web App",
+    color: "#22c55e",
+    icon: "/images/svgs/shield-check.svg",
+    image: "/images/project-hopeim.png",
   },
   {
     title: "Eveara",
