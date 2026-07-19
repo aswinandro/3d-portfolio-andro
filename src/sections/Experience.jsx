@@ -8,7 +8,7 @@ import { ExperienceSkeleton, useSkeletonLoader } from "../components/Skeleton";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ExpCard = ({ card, index }) => {
+const ExpCard = ({ card }) => {
   return (
     <div className="exp-card-wrapper group relative">
       <div className="flex items-start">
@@ -98,7 +98,7 @@ const Experience = () => {
   useGSAP(() => {
     if (!showContent) return;
 
-    gsap.utils.toArray(".exp-card-wrapper").forEach((card, index) => {
+    gsap.utils.toArray(".exp-card-wrapper").forEach((card) => {
       gsap.from(card, {
         y: 50,
         opacity: 0,
@@ -166,8 +166,8 @@ const Experience = () => {
 
           {/* Cards */}
           <div className="relative z-10">
-            {expCards.map((card, index) => (
-              <ExpCard key={card.title} card={card} index={index} />
+            {expCards.map((card) => (
+              <ExpCard key={card.title} card={card} />
             ))}
           </div>
         </div>
