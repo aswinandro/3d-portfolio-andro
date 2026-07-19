@@ -3,7 +3,7 @@ import { abilities } from "../constants";
 import { FeatureCardsSkeleton, useSkeletonLoader } from "../components/Skeleton";
 
 const FeatureCard = ({ imgPath, title, desc, index }) => {
-  const ref = useScrollReveal("fadeUp", { y: 30, delay: index * 0.1 });
+  const ref = useScrollReveal({ y: 30, delay: index * 0.1 });
 
   return (
     <div
