@@ -326,7 +326,7 @@ const Hero = () => {
             <div className="hero-subtitle-line flex items-center gap-4 flex-wrap">
               <Button
                 text="Explore"
-                className="w-48 h-9"
+                className="w-auto"
                 id="counter"
                 onClick={handleScrollToServices}
               />
